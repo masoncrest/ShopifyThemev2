@@ -303,6 +303,8 @@
 <script src="https://www.youtube.com/iframe_api"></script>
 <script>
   var player;
+  var attemptPlay;
+
   function onYouTubeIframeAPIReady() {
     player = new YT.Player('hero-video-container', {
       videoId: 'jItoDFlxDu4',
@@ -316,15 +318,62 @@
         rel: 0,
         showinfo: 0,
         modestbranding: 1,
-        iv_load_policy: 3
+        iv_load_policy: 3,
+        enablejsapi: 1,
+        origin: window.location.origin
       },
       events: {
         onReady: function(event) {
+          event.target.mute();
           event.target.playVideo();
+
+          attemptPlay = setInterval(function() {
+            if (event.target.getPlayerState() !== 1) {
+              event.target.mute();
+              event.target.playVideo();
+            }
+          }, 1000);
+        },
+        onStateChange: function(event) {
+          if (event.data === YT.PlayerState.PLAYING) {
+            clearInterval(attemptPlay);
+          }
+          if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+            event.target.mute();
+            event.target.playVideo();
+          }
         }
       }
     });
   }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+      if (player && player.playVideo) {
+        player.mute();
+        player.playVideo();
+      }
+    }, 1000);
+
+    ['click', 'touchstart', 'scroll'].forEach(function(eventType) {
+      document.addEventListener(eventType, function playOnInteraction() {
+        if (player && player.playVideo) {
+          player.mute();
+          player.playVideo();
+          document.removeEventListener(eventType, playOnInteraction);
+        }
+      }, { once: true });
+    });
+  });
+
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      if (player && player.playVideo) {
+        player.mute();
+        player.playVideo();
+      }
+    }, 500);
+  });
 </script>
 
 {% schema %}
