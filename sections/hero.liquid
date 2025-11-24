@@ -19,6 +19,15 @@
         <a href="https://mason-crest.myshopify.com/pages/refund-policy" class="hero-nav-dropdown-link">Refund Policy</a>
       </div>
     </div>
+    <div class="hero-nav-icons">
+      <a href="https://mason-crest.myshopify.com/account" class="hero-nav-icon" aria-label="Account">
+        <img src="{{ 'icon-account.svg' | asset_url }}" alt="Account" width="20" height="20">
+      </a>
+      <a href="https://mason-crest.myshopify.com/cart" class="hero-nav-icon" aria-label="Cart">
+        <img src="{{ 'icon-cart.svg' | asset_url }}" alt="Cart" width="20" height="20">
+        <span class="hero-cart-count">{{ cart.item_count }}</span>
+      </a>
+    </div>
   </nav>
 
   {%- if section.settings.show_logo -%}
@@ -210,6 +219,44 @@
 
   .hero-nav-dropdown-link:hover {
     opacity: 0.7;
+  }
+
+  .hero-nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-left: auto;
+  }
+
+  .hero-nav-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    transition: opacity 0.3s ease;
+  }
+
+  .hero-nav-icon:hover {
+    opacity: 0.7;
+  }
+
+  .hero-nav-icon img {
+    filter: brightness(0) invert(1);
+  }
+
+  .hero-cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #FFFFFF;
+    color: #000000;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 600;
   }
 
   @media (max-width: 768px) {
