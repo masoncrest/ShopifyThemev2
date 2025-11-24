@@ -1,0 +1,320 @@
+{% comment %}
+  Customer login page
+{% endcomment %}
+
+<div class="customer-page">
+  <div class="customer-container">
+    <div class="customer-header">
+      <h1>Login</h1>
+      <p>Welcome back to Mason Crest</p>
+    </div>
+
+    {%- if recover_password_submitted -%}
+      <div class="customer-notice">
+        We've sent you an email with a link to reset your password.
+      </div>
+    {%- endif -%}
+
+    {%- form 'customer_login', novalidate: 'novalidate' -%}
+      {%- if form.errors -%}
+        <div class="customer-error">
+          <h3>Please correct the following errors:</h3>
+          <ul>
+            {%- for field in form.errors -%}
+              <li>
+                {%- if field == 'form' -%}
+                  {{ form.errors.messages[field] }}
+                {%- else -%}
+                  {{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+
+      <div class="customer-form">
+        <div class="form-group">
+          <label for="CustomerEmail">Email</label>
+          <input
+            type="email"
+            name="customer[email]"
+            id="CustomerEmail"
+            class="form-input"
+            autocomplete="email"
+            autocapitalize="off"
+            autofocus
+            {% if form.email %}value="{{ form.email }}"{% endif %}
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="CustomerPassword">Password</label>
+          <input
+            type="password"
+            name="customer[password]"
+            id="CustomerPassword"
+            class="form-input"
+            autocomplete="current-password"
+          >
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Sign In</button>
+        </div>
+
+        <div class="form-footer">
+          <a href="#recover" class="link-secondary" onclick="showRecoverPasswordForm(); return false;">
+            Forgot your password?
+          </a>
+          <p>
+            New customer? <a href="https://mason-crest.myshopify.com/account/register" class="link-primary">Create an account</a>
+          </p>
+        </div>
+      </div>
+    {%- endform -%}
+
+    <div id="RecoverPasswordForm" style="display: none;">
+      <div class="customer-header">
+        <h2>Reset your password</h2>
+        <p>We will send you an email to reset your password</p>
+      </div>
+
+      {%- form 'recover_customer_password' -%}
+        {%- if form.errors -%}
+          <div class="customer-error">
+            {{ form.errors | default_errors }}
+          </div>
+        {%- endif -%}
+
+        <div class="customer-form">
+          <div class="form-group">
+            <label for="RecoverEmail">Email</label>
+            <input
+              type="email"
+              name="email"
+              id="RecoverEmail"
+              class="form-input"
+              autocomplete="email"
+              autocapitalize="off"
+            >
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-secondary" onclick="hideRecoverPasswordForm(); return false;">
+              Cancel
+            </button>
+          </div>
+        </div>
+      {%- endform -%}
+    </div>
+  </div>
+</div>
+
+<style>
+  .customer-page {
+    min-height: calc(100vh - 200px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    background-image: linear-gradient(rgba(26, 26, 26, 0.85), rgba(26, 26, 26, 0.85)), url('{{ "image.png" | asset_url }}');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+
+  .customer-container {
+    max-width: 500px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 3rem;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+  }
+
+  .customer-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .customer-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-white);
+  }
+
+  .customer-header h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-white);
+  }
+
+  .customer-header p {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 0.05em;
+  }
+
+  .customer-notice {
+    background-color: rgba(76, 175, 80, 0.2);
+    border: 1px solid rgba(76, 175, 80, 0.5);
+    color: #90ee90;
+    padding: 1.5rem;
+    border-radius: 4px;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .customer-error {
+    background-color: rgba(244, 67, 54, 0.2);
+    border: 1px solid rgba(244, 67, 54, 0.5);
+    color: #ff6b6b;
+    padding: 1.5rem;
+    border-radius: 4px;
+    margin-bottom: 2rem;
+  }
+
+  .customer-error h3 {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    text-transform: none;
+  }
+
+  .customer-error ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .customer-error li {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .customer-form {
+    margin-bottom: 2rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+    color: var(--color-white);
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 1.2rem 1.5rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    color: var(--color-white);
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .form-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .form-actions .btn {
+    flex: 1;
+  }
+
+  .btn-primary {
+    background-color: var(--color-white);
+    color: var(--color-black);
+    border-color: var(--color-white);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-black);
+    color: var(--color-white);
+    border-color: var(--color-white);
+  }
+
+  .form-footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .form-footer p {
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .link-secondary {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .link-secondary:hover {
+    color: var(--color-white);
+  }
+
+  .link-primary {
+    color: var(--color-white);
+    text-decoration: underline;
+    transition: opacity 0.3s ease;
+  }
+
+  .link-primary:hover {
+    opacity: 0.8;
+  }
+
+  @media screen and (max-width: 749px) {
+    .customer-container {
+      padding: 2rem;
+    }
+
+    .customer-header h1 {
+      font-size: 2rem;
+    }
+
+    .form-actions {
+      flex-direction: column;
+    }
+  }
+</style>
+
+<script>
+  function showRecoverPasswordForm() {
+    document.querySelector('.customer-form').parentElement.querySelector('form[action*="customer_login"]').parentElement.style.display = 'none';
+    document.getElementById('RecoverPasswordForm').style.display = 'block';
+  }
+
+  function hideRecoverPasswordForm() {
+    document.getElementById('RecoverPasswordForm').style.display = 'none';
+    document.querySelector('.customer-form').parentElement.querySelector('form[action*="customer_login"]').parentElement.style.display = 'block';
+  }
+
+  {%- if recover_password_submitted -%}
+    showRecoverPasswordForm();
+  {%- endif -%}
+</script>

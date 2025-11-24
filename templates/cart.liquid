@@ -2,86 +2,390 @@
   Cart page template
 {% endcomment %}
 
-<div class="section">
-  <div class="container" style="max-width: 1000px;">
-    <h1 style="text-align: center; margin-bottom: 3rem;">Your Cart</h1>
+<div class="cart-page">
+  <div class="cart-container">
+    <div class="customer-header">
+      <h1>Shopping Cart</h1>
+      <p>Review your items before checkout</p>
+    </div>
 
     {% if cart.item_count > 0 %}
-      <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 4rem;">
-        <div>
+      <div class="cart-layout">
+        <div class="cart-items">
           {% for item in cart.items %}
-            <div style="display: flex; gap: 2rem; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
-              <div style="width: 120px; height: 120px; flex-shrink: 0;">
+            <div class="cart-item">
+              <div class="cart-item-image">
                 {% if item.image %}
-                  <img src="{{ item.image | image_url: width: 240 }}" alt="{{ item.title }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
+                  <img src="{{ item.image | image_url: width: 240 }}" alt="{{ item.title }}">
                 {% endif %}
               </div>
 
-              <div style="flex: 1;">
-                <h3 style="margin-bottom: 0.5rem;">{{ item.product.title }}</h3>
+              <div class="cart-item-details">
+                <h3 class="cart-item-title">{{ item.product.title }}</h3>
                 {% if item.variant.title != 'Default Title' %}
-                  <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 0.5rem;">{{ item.variant.title }}</p>
+                  <p class="cart-item-variant">{{ item.variant.title }}</p>
                 {% endif %}
-                <p style="font-weight: 600; font-size: 1.2rem;">{{ item.final_price | money }}</p>
+                <p class="cart-item-price">{{ item.final_price | money }}</p>
               </div>
 
-              <div>
-                <form action="/cart/change" method="post">
+              <div class="cart-item-actions">
+                <form action="/cart/change" method="post" class="cart-quantity-form">
                   <input type="hidden" name="line" value="{{ forloop.index }}">
-                  <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                  <div class="quantity-selector">
+                    <label for="quantity-{{ forloop.index }}">Quantity:</label>
                     <input
                       type="number"
+                      id="quantity-{{ forloop.index }}"
                       name="quantity"
                       value="{{ item.quantity }}"
                       min="0"
-                      style="width: 80px; padding: 0.8rem; background-color: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 4px; color: white; text-align: center;"
+                      class="quantity-input"
                     >
-                    <button type="submit" class="btn" style="padding: 0.8rem 1.5rem;">Update</button>
+                    <button type="submit" class="btn btn-secondary-small">Update</button>
                   </div>
                 </form>
-                <p style="text-align: right; color: rgba(255, 255, 255, 0.7);">{{ item.final_line_price | money }}</p>
+                <p class="cart-item-total">Total: {{ item.final_line_price | money }}</p>
+                <form action="/cart/change" method="post" class="cart-remove-form">
+                  <input type="hidden" name="line" value="{{ forloop.index }}">
+                  <input type="hidden" name="quantity" value="0">
+                  <button type="submit" class="link-remove">Remove</button>
+                </form>
               </div>
             </div>
           {% endfor %}
         </div>
 
-        <div>
-          <div style="background-color: rgba(0, 0, 0, 0.3); padding: 2rem; border-radius: 8px; position: sticky; top: 100px;">
-            <h2 style="margin-bottom: 2rem; font-size: 1.5rem;">Order Summary</h2>
+        <div class="cart-summary">
+          <div class="cart-summary-content">
+            <h2>Order Summary</h2>
 
-            <div style="display: flex; justify-content: space-between; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
-              <span>Subtotal</span>
-              <span>{{ cart.total_price | money }}</span>
+            <div class="summary-line">
+              <span>Subtotal ({{ cart.item_count }} {% if cart.item_count == 1 %}item{% else %}items{% endif %})</span>
+              <span class="summary-value">{{ cart.total_price | money }}</span>
             </div>
 
-            <p style="font-size: 0.9rem; color: rgba(255, 255, 255, 0.7); margin-bottom: 2rem;">
-              Shipping and taxes calculated at checkout
+            <p class="summary-note">
+              Shipping, taxes, and discounts calculated at checkout
             </p>
 
-            <a href="/checkout" class="btn" style="width: 100%; text-align: center; display: block; padding: 1.5rem;">
+            <a href="https://mason-crest.myshopify.com/checkout" class="btn btn-primary btn-checkout">
               Proceed to Checkout
             </a>
 
-            <a href="/collections/all" style="display: block; text-align: center; margin-top: 1rem; color: rgba(255, 255, 255, 0.7);">
+            <a href="/collections/all" class="link-continue-shopping">
               Continue Shopping
             </a>
           </div>
         </div>
       </div>
     {% else %}
-      <div style="text-align: center; padding: 4rem 2rem;">
-        <h2 style="margin-bottom: 1rem; color: rgba(255, 255, 255, 0.8);">Your cart is empty</h2>
-        <p style="color: rgba(255, 255, 255, 0.6); margin-bottom: 2rem;">Add some products to get started</p>
-        <a href="/collections/all" class="btn">Start Shopping</a>
+      <div class="cart-empty">
+        <h2>Your cart is empty</h2>
+        <p>Discover our curated collection of premium fitness gear</p>
+        <a href="/collections/all" class="btn btn-primary">Start Shopping</a>
       </div>
     {% endif %}
   </div>
 </div>
 
 <style>
+  .cart-page {
+    min-height: calc(100vh - 200px);
+    padding: 4rem 2rem;
+    background-image: linear-gradient(rgba(26, 26, 26, 0.85), rgba(26, 26, 26, 0.85)), url('{{ "image.png" | asset_url }}');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+
+  .cart-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .customer-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .customer-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-white);
+  }
+
+  .customer-header p {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 0.05em;
+  }
+
+  .cart-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .cart-item {
+    display: grid;
+    grid-template-columns: 120px 1fr auto;
+    gap: 2rem;
+    padding: 2rem;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .cart-item-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  .cart-item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .cart-item-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  .cart-item-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--color-white);
+    margin-bottom: 0.3rem;
+  }
+
+  .cart-item-variant {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 0.3rem;
+  }
+
+  .cart-item-price {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-white);
+  }
+
+  .cart-item-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .cart-quantity-form {
+    width: 100%;
+  }
+
+  .quantity-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-end;
+  }
+
+  .quantity-selector label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .quantity-input {
+    width: 80px;
+    padding: 0.8rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    color: var(--color-white);
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .quantity-input:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .btn-secondary-small {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
+  }
+
+  .cart-item-total {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-white);
+    text-align: right;
+  }
+
+  .cart-remove-form {
+    margin-top: auto;
+  }
+
+  .link-remove {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.85rem;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+
+  .link-remove:hover {
+    color: #ff6b6b;
+  }
+
+  .cart-summary {
+    position: sticky;
+    top: 120px;
+  }
+
+  .cart-summary-content {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 2.5rem;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .cart-summary h2 {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--color-white);
+  }
+
+  .summary-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    color: var(--color-white);
+  }
+
+  .summary-value {
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+
+  .summary-note {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 2rem;
+    line-height: 1.5;
+  }
+
+  .btn-checkout {
+    width: 100%;
+    text-align: center;
+    display: block;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .link-continue-shopping {
+    display: block;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .link-continue-shopping:hover {
+    color: var(--color-white);
+  }
+
+  .cart-empty {
+    text-align: center;
+    padding: 6rem 2rem;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+  }
+
+  .cart-empty h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--color-white);
+  }
+
+  .cart-empty p {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 2rem;
+  }
+
   @media screen and (max-width: 989px) {
-    .container > div {
-      grid-template-columns: 1fr !important;
+    .cart-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .cart-summary {
+      position: static;
+    }
+
+    .cart-item {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .cart-item-image {
+      width: 100%;
+      height: 200px;
+    }
+
+    .cart-item-actions {
+      align-items: stretch;
+    }
+
+    .quantity-selector {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .customer-header h1 {
+      font-size: 2rem;
+    }
+
+    .cart-summary-content {
+      padding: 2rem;
+    }
+
+    .cart-empty {
+      padding: 4rem 2rem;
+    }
+
+    .cart-empty h2 {
+      font-size: 1.5rem;
     }
   }
 </style>

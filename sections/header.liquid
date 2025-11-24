@@ -33,7 +33,10 @@
       <button class="header-icon search-trigger" aria-label="Search">
         <img src="{{ 'icon-search.svg' | asset_url }}" alt="Search" width="20" height="20">
       </button>
-      <a href="/cart" class="header-icon cart-trigger" aria-label="Cart">
+      <a href="https://mason-crest.myshopify.com/account" class="header-icon" aria-label="Account">
+        <img src="{{ 'icon-account.svg' | asset_url }}" alt="Account" width="20" height="20">
+      </a>
+      <a href="https://mason-crest.myshopify.com/cart" class="header-icon cart-trigger" aria-label="Cart">
         <img src="{{ 'icon-cart.svg' | asset_url }}" alt="Cart" width="20" height="20">
         <span class="cart-count" data-cart-count>{{ cart.item_count }}</span>
       </a>
