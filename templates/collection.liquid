@@ -1,0 +1,126 @@
+{% comment %}
+  Collection template for all products and categories
+{% endcomment %}
+
+<div class="section" style="min-height: calc(100vh - 200px);">
+  <div class="container">
+    <div style="margin-bottom: 3rem; text-align: center; padding: 3rem 2rem;">
+      <h1 style="margin-bottom: 1rem; color: #FFFFFF;">{{ collection.title }}</h1>
+      {%- if collection.description != blank -%}
+        <div style="max-width: 700px; margin: 0 auto; color: rgba(255, 255, 255, 0.9);">
+          {{ collection.description }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div style="margin-bottom: 3rem; display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; align-items: center;">
+      <form action="{{ collection.url }}" method="get" style="flex: 1; max-width: 500px;">
+        <input
+          type="search"
+          name="q"
+          value="{{ search.terms | escape }}"
+          placeholder="Search products..."
+          class="search-input"
+          style="width: 100%;"
+        >
+      </form>
+
+      <div style="display: flex; gap: 1rem;">
+        <select
+          name="sort_by"
+          id="SortBy"
+          onchange="window.location.href = this.value"
+          style="
+            padding: 1rem 1.5rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            color: #FFFFFF;
+            font-size: 0.95rem;
+          "
+        >
+          <option value="{{ collection.url }}">Sort By</option>
+          <option value="{{ collection.url }}?sort_by=title-ascending" {% if collection.sort_by == 'title-ascending' %}selected{% endif %}>A-Z</option>
+          <option value="{{ collection.url }}?sort_by=title-descending" {% if collection.sort_by == 'title-descending' %}selected{% endif %}>Z-A</option>
+          <option value="{{ collection.url }}?sort_by=price-ascending" {% if collection.sort_by == 'price-ascending' %}selected{% endif %}>Price: Low to High</option>
+          <option value="{{ collection.url }}?sort_by=price-descending" {% if collection.sort_by == 'price-descending' %}selected{% endif %}>Price: High to Low</option>
+          <option value="{{ collection.url }}?sort_by=created-descending" {% if collection.sort_by == 'created-descending' %}selected{% endif %}>Newest</option>
+          <option value="{{ collection.url }}?sort_by=best-selling" {% if collection.sort_by == 'best-selling' %}selected{% endif %}>Best Selling</option>
+        </select>
+      </div>
+    </div>
+
+    {%- if collection.products.size > 0 -%}
+      <div class="product-grid">
+        {%- for product in collection.products -%}
+          <a href="{{ product.url }}" class="product-card">
+            <div class="product-image-wrapper">
+              {%- if product.featured_image != blank -%}
+                <img
+                  src="{{ product.featured_image | image_url: width: 600 }}"
+                  alt="{{ product.title }}"
+                  class="product-image"
+                  loading="lazy"
+                >
+              {%- else -%}
+                <div class="product-image" style="background-color: rgba(255, 255, 255, 0.1);"></div>
+              {%- endif -%}
+
+              {%- if product.compare_at_price > product.price -%}
+                <span style="
+                  position: absolute;
+                  top: 1rem;
+                  right: 1rem;
+                  background-color: #FF5252;
+                  color: white;
+                  padding: 0.5rem 1rem;
+                  border-radius: 4px;
+                  font-size: 0.85rem;
+                  font-weight: 600;
+                ">
+                  SALE
+                </span>
+              {%- endif -%}
+            </div>
+            <div class="product-info">
+              <h3 class="product-title">{{ product.title }}</h3>
+              <div class="product-price">
+                {%- if product.compare_at_price > product.price -%}
+                  <span style="text-decoration: line-through; opacity: 0.6; margin-right: 0.5rem;">
+                    {{ product.compare_at_price | money }}
+                  </span>
+                {%- endif -%}
+                {{ product.price | money }}
+              </div>
+            </div>
+          </a>
+        {%- endfor -%}
+      </div>
+
+      {%- if paginate.pages > 1 -%}
+        <div style="margin-top: 4rem; text-align: center;">
+          {%- if paginate.previous -%}
+            <a href="{{ paginate.previous.url }}" class="btn" style="margin: 0 0.5rem;">← Previous</a>
+          {%- endif -%}
+
+          <span style="margin: 0 1rem; color: rgba(255, 255, 255, 0.7);">
+            Page {{ paginate.current_page }} of {{ paginate.pages }}
+          </span>
+
+          {%- if paginate.next -%}
+            <a href="{{ paginate.next.url }}" class="btn" style="margin: 0 0.5rem;">Next →</a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    {%- else -%}
+      <div style="text-align: center; padding: 4rem 2rem;">
+        <h2 style="margin-bottom: 1rem; color: rgba(255, 255, 255, 0.8);">No products found</h2>
+        <p style="color: rgba(255, 255, 255, 0.6);">Try adjusting your search or filter criteria</p>
+        <a href="/collections/all" class="btn" style="margin-top: 2rem;">View All Products</a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% paginate collection.products by 12 %}
+{% endpaginate %}

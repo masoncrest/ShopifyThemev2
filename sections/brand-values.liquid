@@ -1,0 +1,144 @@
+{% comment %}
+  Brand values section with icons
+{% endcomment %}
+
+<section id="brand_values" class="brand-values section" style="background-color: {{ section.settings.background_color }};">
+  <div class="container">
+    {%- if section.settings.section_title != blank -%}
+      <h2 class="section-title" style="color: {{ section.settings.title_color }};">{{ section.settings.section_title }}</h2>
+    {%- endif -%}
+
+    <div class="values-grid">
+      {%- for block in section.blocks -%}
+        <div class="value-item" {{ block.shopify_attributes }}>
+          {%- if block.settings.icon != blank -%}
+            <img src="{{ block.settings.icon | image_url: width: 60 }}" alt="{{ block.settings.title }}" class="value-icon" style="filter: {{ section.settings.icon_filter }};">
+          {%- endif -%}
+
+          <h3 class="value-title" style="color: {{ section.settings.heading_color }};">
+            {{ block.settings.title }}
+          </h3>
+
+          {%- if block.settings.description != blank -%}
+            <p class="value-description" style="color: {{ section.settings.text_color }};">
+              {{ block.settings.description }}
+            </p>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brand Values",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Section Title Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Value Heading Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Value Text Color",
+      "default": "rgba(255, 255, 255, 0.7)"
+    },
+    {
+      "type": "select",
+      "id": "icon_filter",
+      "label": "Icon Color Filter",
+      "options": [
+        {
+          "value": "none",
+          "label": "Original"
+        },
+        {
+          "value": "brightness(0) invert(1)",
+          "label": "White"
+        }
+      ],
+      "default": "brightness(0) invert(1)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Value Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Premium Quality"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Only the best materials and craftsmanship"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Values",
+      "blocks": [
+        {
+          "type": "value",
+          "settings": {
+            "title": "Premium Quality",
+            "description": "Only the best materials and craftsmanship"
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "title": "Curated Fitness Gear",
+            "description": "Handpicked products for peak performance"
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "title": "Peak Performance",
+            "description": "Engineered for elite athletes and enthusiasts"
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "title": "Fast Global Shipping",
+            "description": "Quick delivery to your doorstep worldwide"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

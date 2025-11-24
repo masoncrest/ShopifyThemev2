@@ -1,0 +1,118 @@
+{% comment %}
+  Products carousel with horizontal scroll
+{% endcomment %}
+
+<section id="products_carousel" class="carousel-container section" style="display: none; background-color: {{ section.settings.background_color }};">
+  <div class="container">
+    {%- if section.settings.section_title != blank -%}
+      <h2 class="section-title" style="color: {{ section.settings.title_color }};">
+        {{ section.settings.section_title }}
+      </h2>
+    {%- endif -%}
+  </div>
+
+  <div class="carousel-wrapper" id="products-carousel-{{ section.id }}">
+    {%- assign collection = collections[section.settings.collection] -%}
+    {%- assign products_to_show = section.settings.products_limit -%}
+
+    {%- if collection != blank and collection.products.size > 0 -%}
+      {%- for product in collection.products limit: products_to_show -%}
+        <div class="carousel-item">
+          <a href="{{ product.url }}" class="product-card">
+            <div class="product-image-wrapper">
+              {%- if product.featured_image != blank -%}
+                <img
+                  src="{{ product.featured_image | image_url: width: 600 }}"
+                  alt="{{ product.title }}"
+                  class="product-image"
+                  loading="lazy"
+                >
+              {%- else -%}
+                <div class="product-image" style="background-color: rgba(255, 255, 255, 0.1);"></div>
+              {%- endif -%}
+            </div>
+            <div class="product-info">
+              <h3 class="product-title" style="color: {{ section.settings.product_title_color }};">
+                {{ product.title }}
+              </h3>
+              <p class="product-price" style="color: {{ section.settings.product_price_color }};">
+                {{ product.price | money }}
+              </p>
+            </div>
+          </a>
+        </div>
+      {%- endfor -%}
+    {%- else -%}
+      {%- for i in (1..8) -%}
+        <div class="carousel-item">
+          <div class="product-card">
+            <div class="product-image-wrapper">
+              <div class="product-image" style="background-color: rgba(255, 255, 255, 0.1);"></div>
+            </div>
+            <div class="product-info">
+              <h3 class="product-title">Sample Product {{ i }}</h3>
+              <p class="product-price">$99.00</p>
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Products Carousel",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Featured Products"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "label": "Number of Products",
+      "min": 4,
+      "max": 20,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Section Title Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "product_title_color",
+      "label": "Product Title Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "product_price_color",
+      "label": "Product Price Color",
+      "default": "#F5F5F5"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Products Carousel"
+    }
+  ]
+}
+{% endschema %}

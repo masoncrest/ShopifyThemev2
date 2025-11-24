@@ -1,0 +1,375 @@
+{% comment %}
+  Hero section for homepage
+{% endcomment %}
+
+<section id="hero" class="hero-section">
+  <div id="hero-video-container" class="hero-video"></div>
+  <div class="hero-overlay"></div>
+  <nav class="hero-nav">
+    <a href="/" class="hero-nav-link">Home</a>
+    <a href="/pages/about-us" class="hero-nav-link">About</a>
+    <a href="/pages/faqs" class="hero-nav-link">FAQs</a>
+    <a href="/pages/shipping" class="hero-nav-link">Shipping</a>
+    <a href="/pages/contact-us" class="hero-nav-link">Contact</a>
+    <div class="hero-nav-dropdown">
+      <span class="hero-nav-link hero-nav-dropdown-trigger">Policies</span>
+      <div class="hero-nav-dropdown-menu">
+        <a href="/policies/privacy-policy" class="hero-nav-dropdown-link">Privacy Policy</a>
+        <a href="/policies/terms-of-service" class="hero-nav-dropdown-link">Terms of Service</a>
+        <a href="/policies/refund-policy" class="hero-nav-dropdown-link">Refund Policy</a>
+        <a href="/policies/shipping-policy" class="hero-nav-dropdown-link">Shipping Policy</a>
+      </div>
+    </div>
+  </nav>
+
+  {%- if section.settings.show_logo -%}
+    <div class="hero-logo-container">
+      {%- if settings.logo != blank -%}
+        <img src="{{ settings.logo | image_url: width: 250 }}" alt="{{ shop.name }}" width="250" height="auto" style="margin: 0 auto;">
+      {%- else -%}
+        <div class="hero-logo-text">MASON CREST</div>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  {%- if section.settings.hero_subtitle != blank -%}
+    <div class="hero-subtitle-container">
+      <p class="hero-subtitle" style="color: {{ section.settings.subtitle_color }};">
+        {{ section.settings.hero_subtitle }}
+      </p>
+      {%- if section.settings.button_text != blank -%}
+        <a href="{{ section.settings.button_link }}" class="hero-button" style="background-color: {{ section.settings.button_bg_color }}; color: {{ section.settings.button_text_color }};">
+          {{ section.settings.button_text }}
+        </a>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+</section>
+
+<style>
+  .hero-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .hero-video {
+    position: absolute;
+    top: -5%;
+    left: -5%;
+    width: 110%;
+    height: 110%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .hero-video iframe {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: scale(1.35);
+    transform-origin: center center;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(26, 26, 26, 0.4), rgba(26, 26, 26, 0.4));
+    z-index: 1;
+  }
+
+  .hero-nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4.5rem;
+    padding: 1.5rem 2rem;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    z-index: 10;
+  }
+
+  .hero-logo-container {
+    position: absolute;
+    top: 8rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    text-align: center;
+  }
+
+  .hero-logo-text {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #FFFFFF;
+    text-transform: uppercase;
+  }
+
+  .hero-subtitle-container {
+    position: absolute;
+    bottom: 6rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+    padding: 0 2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.6;
+    margin: 0 0 2rem 0;
+  }
+
+  .hero-button {
+    display: inline-block;
+    padding: 1rem 3rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.3s ease, transform 0.2s ease;
+  }
+
+  .hero-button:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
+
+  .hero-nav-link {
+    color: #FFFFFF;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .hero-nav-link:hover {
+    opacity: 0.7;
+  }
+
+  .hero-nav-dropdown {
+    position: relative;
+  }
+
+  .hero-nav-dropdown-trigger {
+    cursor: pointer;
+  }
+
+  .hero-nav-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, margin-top 0.3s ease;
+  }
+
+  .hero-nav-dropdown:hover .hero-nav-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    margin-top: 1.5rem;
+  }
+
+  .hero-nav-dropdown-link {
+    color: #FFFFFF;
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  .hero-nav-dropdown-link:hover {
+    opacity: 0.7;
+  }
+
+  @media (max-width: 768px) {
+    .hero-nav {
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      padding: 1rem 1rem;
+      justify-content: center;
+    }
+
+    .hero-nav-link {
+      font-size: 0.8rem;
+    }
+
+    .hero-nav-dropdown-link {
+      font-size: 0.75rem;
+    }
+
+    .hero-logo-container {
+      top: 6rem;
+    }
+
+    .hero-logo-text {
+      font-size: 1.8rem;
+    }
+
+    .hero-subtitle-container {
+      bottom: 4rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+    }
+
+    .hero-button {
+      padding: 0.875rem 2.5rem;
+      font-size: 0.85rem;
+    }
+  }
+</style>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+  var player;
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('hero-video-container', {
+      videoId: 'jItoDFlxDu4',
+      playerVars: {
+        autoplay: 1,
+        mute: 1,
+        controls: 0,
+        loop: 1,
+        playlist: 'jItoDFlxDu4',
+        playsinline: 1,
+        rel: 0,
+        showinfo: 0,
+        modestbranding: 1,
+        iv_load_policy: 3
+      },
+      events: {
+        onReady: function(event) {
+          event.target.playVideo();
+        }
+      }
+    });
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Hero Section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_logo",
+      "label": "Show Logo",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Headline",
+      "default": "Premium Fitness For Peak Performance"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_subtitle",
+      "label": "Subheadline",
+      "default": "Curated gear and wellness essentials for those who demand excellence"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop All Products"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color (if no image)",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Image Overlay Opacity",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "default": 0.5
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#FFFFFF"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Section"
+    }
+  ]
+}
+{% endschema %}

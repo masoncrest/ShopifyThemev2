@@ -1,0 +1,125 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "show_logo": true,
+        "hero_title": "Premium Fitness For Peak Performance",
+        "hero_subtitle": "Curated gear and wellness essentials for those who demand excellence",
+        "button_text": "Shop All Products",
+        "button_link": "/collections/all",
+        "background_color": "#1A1A1A",
+        "overlay_opacity": 0.5,
+        "title_color": "#FFFFFF",
+        "subtitle_color": "#FFFFFF",
+        "button_bg_color": "#000000",
+        "button_text_color": "#FFFFFF"
+      }
+    },
+    "brand_values": {
+      "type": "brand-values",
+      "blocks": {
+        "value_1": {
+          "type": "value",
+          "settings": {
+            "title": "Trusted Health & Fitness Essentials",
+            "description": "A curated mix of fitness, wellness, and recovery products—selected for quality, comfort, and real-world results."
+          }
+        },
+        "value_2": {
+          "type": "value",
+          "settings": {
+            "title": "Smart, Science-Aware Selection",
+            "description": "From supplements to mobility tools, every item is chosen for its effectiveness and alignment with modern health standards."
+          }
+        },
+        "value_3": {
+          "type": "value",
+          "settings": {
+            "title": "Performance & Wellness Combined",
+            "description": "Gear and products that support your training, recovery, nutrition, and overall wellbeing—so you can feel and perform at your best."
+          }
+        },
+        "value_4": {
+          "type": "value",
+          "settings": {
+            "title": "Worldwide Delivery",
+            "description": "Reliable international shipping through trusted fulfilment partners, so wellness and fitness tools reach you wherever you are."
+          }
+        },
+        "value_5": {
+          "type": "value",
+          "settings": {
+            "title": "Secure, Smooth Checkout",
+            "description": "Encrypted payment processing and a seamless checkout experience—simple, safe, and stress-free."
+          }
+        },
+        "value_6": {
+          "type": "value",
+          "settings": {
+            "title": "24/7 Customer Support",
+            "description": "Instant answers through our AI chatbot, with human specialists stepping in for anything that needs a personal touch."
+          }
+        }
+      },
+      "block_order": [
+        "value_1",
+        "value_2",
+        "value_3",
+        "value_4",
+        "value_5",
+        "value_6"
+      ],
+      "settings": {
+        "background_color": "#000000",
+        "title_color": "#FFFFFF",
+        "heading_color": "#FFFFFF",
+        "text_color": "rgba(255, 255, 255, 0.7)",
+        "icon_filter": "brightness(0) invert(1)"
+      }
+    },
+    "featured_categories": {
+      "type": "featured-categories",
+      "settings": {
+        "section_title": "Shop By Category",
+        "products_text": "Products",
+        "background_color": "#1A1A1A",
+        "title_color": "#FFFFFF",
+        "card_title_color": "#FFFFFF",
+        "card_text_color": "#F5F5F5"
+      }
+    },
+    "products_carousel": {
+      "type": "products-carousel",
+      "settings": {
+        "section_title": "Featured Products",
+        "products_limit": 8,
+        "background_color": "#1A1A1A",
+        "title_color": "#FFFFFF",
+        "product_title_color": "#FFFFFF",
+        "product_price_color": "#F5F5F5"
+      }
+    },
+    "weekly_challenge": {
+      "type": "weekly-challenge",
+      "settings": {
+        "supabase_url": "https://ccywuvgvxhmunspgzjdj.supabase.co",
+        "supabase_anon_key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNjeXd1dmd2eGhtdW5zcGd6amRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM4NDAxOTQsImV4cCI6MjA3OTQxNjE5NH0.SagrTlTjEuG7203EKz7u_X5Nt6xHrnTs11ag9seUppg",
+        "background_color": "#000000",
+        "heading_color": "#FFFFFF",
+        "card_bg_color": "rgba(255, 255, 255, 0.05)",
+        "card_border_color": "rgba(255, 255, 255, 0.1)",
+        "card_title_color": "#FFFFFF",
+        "card_text_color": "rgba(255, 255, 255, 0.8)",
+        "accent_color": "#FFFFFF"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "brand_values",
+    "featured_categories",
+    "products_carousel",
+    "weekly_challenge"
+  ]
+}

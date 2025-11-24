@@ -1,0 +1,164 @@
+{% comment %}
+  Newsletter signup section
+{% endcomment %}
+
+<section class="newsletter-section" style="background-color: {{ section.settings.background_color }};">
+  <div class="newsletter-content">
+    {%- if section.settings.heading != blank -%}
+      <h2 style="color: {{ section.settings.heading_color }}; margin-bottom: 1rem;">
+        {{ section.settings.heading }}
+      </h2>
+    {%- endif -%}
+
+    {%- if section.settings.description != blank -%}
+      <p style="color: {{ section.settings.text_color }}; font-size: 1.1rem; margin-bottom: 2rem;">
+        {{ section.settings.description }}
+      </p>
+    {%- endif -%}
+
+    {% form 'customer', class: 'newsletter-form' %}
+      {% if form.posted_successfully? %}
+        <p style="color: {{ section.settings.success_color }}; font-weight: 500;">
+          {{ section.settings.success_message | default: 'Thank you for subscribing!' }}
+        </p>
+      {% else %}
+        <input
+          type="email"
+          name="contact[email]"
+          class="newsletter-input"
+          placeholder="{{ section.settings.placeholder_text | default: 'Enter your email' }}"
+          required
+          style="
+            background-color: {{ section.settings.input_bg_color }};
+            color: {{ section.settings.input_text_color }};
+            border-color: {{ section.settings.input_border_color }};
+          "
+        >
+        <button
+          type="submit"
+          class="btn"
+          style="
+            background-color: {{ section.settings.button_bg_color }};
+            color: {{ section.settings.button_text_color }};
+            border-color: {{ section.settings.button_bg_color }};
+          "
+        >
+          {{ section.settings.button_text | default: 'Subscribe' }}
+        </button>
+
+        {% if form.errors %}
+          <p style="color: {{ section.settings.error_color }}; margin-top: 1rem;">
+            {{ form.errors | default_errors }}
+          </p>
+        {% endif %}
+      {% endif %}
+    {% endform %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Join The Mason Crest Community"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Get exclusive access to new products, fitness tips, and special offers"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_text",
+      "label": "Input Placeholder",
+      "default": "Enter your email"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Subscribe"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success Message",
+      "default": "Thank you for subscribing!"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#F5F5F5"
+    },
+    {
+      "type": "color",
+      "id": "input_bg_color",
+      "label": "Input Background Color",
+      "default": "rgba(255, 255, 255, 0.1)"
+    },
+    {
+      "type": "color",
+      "id": "input_text_color",
+      "label": "Input Text Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "input_border_color",
+      "label": "Input Border Color",
+      "default": "rgba(255, 255, 255, 0.2)"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "success_color",
+      "label": "Success Message Color",
+      "default": "#4CAF50"
+    },
+    {
+      "type": "color",
+      "id": "error_color",
+      "label": "Error Message Color",
+      "default": "#FF5252"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter"
+    }
+  ]
+}
+{% endschema %}

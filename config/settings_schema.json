@@ -1,0 +1,910 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Mason Crest",
+    "theme_version": "1.0.0",
+    "theme_author": "Mason Crest",
+    "theme_documentation_url": "",
+    "theme_support_url": ""
+  },
+  {
+    "name": "Logo",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo Image",
+        "info": "Upload your logo or leave empty to use text logo 'MASON CREST'"
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "Will be displayed in browser tabs. Recommended size: 32x32px"
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Main Colors"
+      },
+      {
+        "type": "color",
+        "id": "colors_text",
+        "label": "Text Color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "colors_background_1",
+        "label": "Background Color 1",
+        "default": "#1A1A1A"
+      },
+      {
+        "type": "color",
+        "id": "colors_background_2",
+        "label": "Background Color 2",
+        "default": "#000000"
+      },
+      {
+        "type": "color_background",
+        "id": "gradient_background_1",
+        "label": "Background Gradient 1"
+      },
+      {
+        "type": "color_background",
+        "id": "gradient_background_2",
+        "label": "Background Gradient 2"
+      },
+      {
+        "type": "header",
+        "content": "Button Colors"
+      },
+      {
+        "type": "color",
+        "id": "colors_solid_button_labels",
+        "label": "Solid Button Text",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "colors_accent_1",
+        "label": "Button Background",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "colors_outline_button_labels",
+        "label": "Outline Button Text",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "colors_accent_2",
+        "label": "Accent Color 2",
+        "default": "#F5F5F5"
+      },
+      {
+        "type": "color_background",
+        "id": "gradient_accent_1",
+        "label": "Button Gradient 1"
+      },
+      {
+        "type": "color_background",
+        "id": "gradient_accent_2",
+        "label": "Button Gradient 2"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Headings"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_header_font",
+        "label": "Heading Font",
+        "default": "assistant_n4"
+      },
+      {
+        "type": "range",
+        "id": "heading_scale",
+        "label": "Heading Scale",
+        "min": 100,
+        "max": 150,
+        "step": 5,
+        "default": 100,
+        "unit": "%"
+      },
+      {
+        "type": "header",
+        "content": "Body Text"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_body_font",
+        "label": "Body Font",
+        "default": "assistant_n4"
+      },
+      {
+        "type": "range",
+        "id": "body_scale",
+        "label": "Body Font Scale",
+        "min": 100,
+        "max": 130,
+        "step": 5,
+        "default": 100,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "range",
+        "id": "page_width",
+        "label": "Page Width",
+        "min": 1000,
+        "max": 1600,
+        "step": 100,
+        "default": 1200,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "spacing_sections",
+        "label": "Section Spacing",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "default": 60,
+        "unit": "px"
+      },
+      {
+        "type": "header",
+        "content": "Grid"
+      },
+      {
+        "type": "range",
+        "id": "spacing_grid_horizontal",
+        "label": "Horizontal Spacing",
+        "min": 4,
+        "max": 40,
+        "step": 4,
+        "default": 24,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "spacing_grid_vertical",
+        "label": "Vertical Spacing",
+        "min": 4,
+        "max": 40,
+        "step": 4,
+        "default": 24,
+        "unit": "px"
+      }
+    ]
+  },
+  {
+    "name": "Product Cards",
+    "settings": [
+      {
+        "type": "select",
+        "id": "card_text_alignment",
+        "label": "Text Alignment",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ],
+        "default": "left"
+      },
+      {
+        "type": "range",
+        "id": "card_image_padding",
+        "label": "Image Padding",
+        "min": 0,
+        "max": 20,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "card_corner_radius",
+        "label": "Corner Radius",
+        "min": 0,
+        "max": 40,
+        "step": 2,
+        "default": 8,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "card_border_thickness",
+        "label": "Border Thickness",
+        "min": 0,
+        "max": 20,
+        "step": 1,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "card_border_opacity",
+        "label": "Border Opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 0,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "card_shadow_opacity",
+        "label": "Shadow Opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 10,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "card_shadow_horizontal_offset",
+        "label": "Shadow Horizontal Offset",
+        "min": -40,
+        "max": 40,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "card_shadow_vertical_offset",
+        "label": "Shadow Vertical Offset",
+        "min": -40,
+        "max": 40,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "card_shadow_blur",
+        "label": "Shadow Blur",
+        "min": 0,
+        "max": 40,
+        "step": 5,
+        "default": 0,
+        "unit": "px"
+      }
+    ]
+  },
+  {
+    "name": "Buttons",
+    "settings": [
+      {
+        "type": "range",
+        "id": "buttons_radius",
+        "label": "Corner Radius",
+        "min": 0,
+        "max": 40,
+        "step": 2,
+        "default": 4,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "buttons_border_thickness",
+        "label": "Border Thickness",
+        "min": 0,
+        "max": 12,
+        "step": 1,
+        "default": 2,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "buttons_border_opacity",
+        "label": "Border Opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 100,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "buttons_shadow_opacity",
+        "label": "Shadow Opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 0,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "buttons_shadow_horizontal_offset",
+        "label": "Shadow Horizontal Offset",
+        "min": -40,
+        "max": 40,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "buttons_shadow_vertical_offset",
+        "label": "Shadow Vertical Offset",
+        "min": -40,
+        "max": 40,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "buttons_shadow_blur",
+        "label": "Shadow Blur",
+        "min": 0,
+        "max": 40,
+        "step": 5,
+        "default": 0,
+        "unit": "px"
+      }
+    ]
+  },
+  {
+    "name": "Inputs",
+    "settings": [
+      {
+        "type": "range",
+        "id": "inputs_radius",
+        "label": "Corner Radius",
+        "min": 0,
+        "max": 40,
+        "step": 2,
+        "default": 4,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "inputs_border_thickness",
+        "label": "Border Thickness",
+        "min": 0,
+        "max": 12,
+        "step": 1,
+        "default": 1,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "inputs_border_opacity",
+        "label": "Border Opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 55,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "inputs_shadow_opacity",
+        "label": "Shadow Opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 0,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "inputs_shadow_horizontal_offset",
+        "label": "Shadow Horizontal Offset",
+        "min": -40,
+        "max": 40,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "inputs_shadow_vertical_offset",
+        "label": "Shadow Vertical Offset",
+        "min": -40,
+        "max": 40,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "inputs_shadow_blur",
+        "label": "Shadow Blur",
+        "min": 0,
+        "max": 40,
+        "step": 5,
+        "default": 0,
+        "unit": "px"
+      }
+    ]
+  },
+  {
+    "name": "Variant Pills",
+    "settings": [
+      {
+        "type": "range",
+        "id": "variant_pills_radius",
+        "label": "Corner Radius",
+        "min": 0,
+        "max": 40,
+        "step": 2,
+        "default": 40,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "variant_pills_border_thickness",
+        "label": "Border Thickness",
+        "min": 0,
+        "max": 12,
+        "step": 1,
+        "default": 1,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "variant_pills_border_opacity",
+        "label": "Border Opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 55,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "variant_pills_shadow_opacity",
+        "label": "Shadow Opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 0,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "variant_pills_shadow_horizontal_offset",
+        "label": "Shadow Horizontal Offset",
+        "min": -40,
+        "max": 40,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "variant_pills_shadow_vertical_offset",
+        "label": "Shadow Vertical Offset",
+        "min": -40,
+        "max": 40,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "variant_pills_shadow_blur",
+        "label": "Shadow Blur",
+        "min": 0,
+        "max": 40,
+        "step": 5,
+        "default": 0,
+        "unit": "px"
+      }
+    ]
+  },
+  {
+    "name": "Drawers",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Drawer"
+      },
+      {
+        "type": "range",
+        "id": "drawer_border_thickness",
+        "label": "Border Thickness",
+        "min": 0,
+        "max": 12,
+        "step": 1,
+        "default": 1,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "drawer_border_opacity",
+        "label": "Border Opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 10,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "drawer_shadow_opacity",
+        "label": "Shadow Opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 0,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "drawer_shadow_horizontal_offset",
+        "label": "Shadow Horizontal Offset",
+        "min": -40,
+        "max": 40,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "drawer_shadow_vertical_offset",
+        "label": "Shadow Vertical Offset",
+        "min": -40,
+        "max": 40,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "drawer_shadow_blur",
+        "label": "Shadow Blur",
+        "min": 0,
+        "max": 40,
+        "step": 5,
+        "default": 0,
+        "unit": "px"
+      }
+    ]
+  },
+  {
+    "name": "Media",
+    "settings": [
+      {
+        "type": "range",
+        "id": "media_padding",
+        "label": "Padding",
+        "min": 0,
+        "max": 100,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "media_border_thickness",
+        "label": "Border Thickness",
+        "min": 0,
+        "max": 20,
+        "step": 1,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "media_border_opacity",
+        "label": "Border Opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 5,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "media_radius",
+        "label": "Corner Radius",
+        "min": 0,
+        "max": 40,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "media_shadow_opacity",
+        "label": "Shadow Opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 0,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "media_shadow_horizontal_offset",
+        "label": "Shadow Horizontal Offset",
+        "min": -40,
+        "max": 40,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "media_shadow_vertical_offset",
+        "label": "Shadow Vertical Offset",
+        "min": -40,
+        "max": 40,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "media_shadow_blur",
+        "label": "Shadow Blur",
+        "min": 0,
+        "max": 40,
+        "step": 5,
+        "default": 0,
+        "unit": "px"
+      }
+    ]
+  },
+  {
+    "name": "Popups",
+    "settings": [
+      {
+        "type": "range",
+        "id": "popup_border_thickness",
+        "label": "Border Thickness",
+        "min": 0,
+        "max": 12,
+        "step": 1,
+        "default": 1,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "popup_border_opacity",
+        "label": "Border Opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 10,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "popup_corner_radius",
+        "label": "Corner Radius",
+        "min": 0,
+        "max": 40,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "popup_shadow_opacity",
+        "label": "Shadow Opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 0,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "popup_shadow_horizontal_offset",
+        "label": "Shadow Horizontal Offset",
+        "min": -40,
+        "max": 40,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "popup_shadow_vertical_offset",
+        "label": "Shadow Vertical Offset",
+        "min": -40,
+        "max": 40,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "popup_shadow_blur",
+        "label": "Shadow Blur",
+        "min": 0,
+        "max": 40,
+        "step": 5,
+        "default": 0,
+        "unit": "px"
+      }
+    ]
+  },
+  {
+    "name": "Badge",
+    "settings": [
+      {
+        "type": "range",
+        "id": "badge_corner_radius",
+        "label": "Corner Radius",
+        "min": 0,
+        "max": 40,
+        "step": 2,
+        "default": 40,
+        "unit": "px"
+      }
+    ]
+  },
+  {
+    "name": "Text Boxes",
+    "settings": [
+      {
+        "type": "range",
+        "id": "text_boxes_border_thickness",
+        "label": "Border Thickness",
+        "min": 0,
+        "max": 12,
+        "step": 1,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "text_boxes_border_opacity",
+        "label": "Border Opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 10,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "text_boxes_radius",
+        "label": "Corner Radius",
+        "min": 0,
+        "max": 40,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "text_boxes_shadow_opacity",
+        "label": "Shadow Opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 0,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "text_boxes_shadow_horizontal_offset",
+        "label": "Shadow Horizontal Offset",
+        "min": -40,
+        "max": 40,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "text_boxes_shadow_vertical_offset",
+        "label": "Shadow Vertical Offset",
+        "min": -40,
+        "max": 40,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "text_boxes_shadow_blur",
+        "label": "Shadow Blur",
+        "min": 0,
+        "max": 40,
+        "step": 5,
+        "default": 0,
+        "unit": "px"
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "select",
+        "id": "cart_type",
+        "label": "Cart Type",
+        "options": [
+          {
+            "value": "drawer",
+            "label": "Drawer"
+          },
+          {
+            "value": "page",
+            "label": "Page"
+          }
+        ],
+        "default": "drawer"
+      }
+    ]
+  },
+  {
+    "name": "Search",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "predictive_search_enabled",
+        "label": "Enable Predictive Search",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Social Media",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Social Accounts"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": "Facebook",
+        "info": "https://facebook.com/your-page"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram",
+        "info": "https://instagram.com/your-account"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter_link",
+        "label": "Twitter",
+        "info": "https://twitter.com/your-account"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube_link",
+        "label": "YouTube",
+        "info": "https://youtube.com/your-channel"
+      }
+    ]
+  }
+]

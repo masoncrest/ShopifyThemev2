@@ -1,0 +1,323 @@
+{% comment %}
+  Weekly Challenge Section - Rotates through 20 challenges every Sunday at 12am GMT
+{% endcomment %}
+
+<section id="weekly_challenge" class="weekly-challenge-section" style="background-color: {{ section.settings.background_color }};">
+  <div class="weekly-challenge-container">
+    <div id="weekly-challenge-content" class="challenge-loading">
+      <div class="loading-spinner"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .weekly-challenge-section {
+    padding: 4rem 2rem;
+    min-height: 400px;
+  }
+
+  .weekly-challenge-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .challenge-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+  }
+
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-top-color: {{ section.settings.heading_color }};
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .challenge-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .challenge-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: {{ section.settings.heading_color }};
+    margin: 0;
+    letter-spacing: -0.02em;
+  }
+
+  .challenge-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .challenge-card {
+    background: {{ section.settings.card_bg_color }};
+    border: 1px solid {{ section.settings.card_border_color }};
+    border-radius: 12px;
+    padding: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .challenge-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  .habit-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: {{ section.settings.card_title_color }};
+    margin: 0 0 1.5rem 0;
+    line-height: 1.3;
+  }
+
+  .habit-benefits {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .habit-benefits li {
+    color: {{ section.settings.card_text_color }};
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .habit-benefits li:before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: {{ section.settings.accent_color }};
+    font-weight: 700;
+  }
+
+  .habit-benefits li:last-child {
+    margin-bottom: 0;
+  }
+
+  .challenge-footer {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid {{ section.settings.card_border_color }};
+  }
+
+  .challenge-description {
+    color: {{ section.settings.card_text_color }};
+    font-size: 1rem;
+    line-height: 1.7;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 768px) {
+    .weekly-challenge-section {
+      padding: 3rem 1.5rem;
+    }
+
+    .challenge-title {
+      font-size: 1.75rem;
+    }
+
+    .challenge-cards {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .challenge-card {
+      padding: 1.5rem;
+    }
+  }
+</style>
+
+<script>
+  (async function() {
+    const SUPABASE_URL = '{{ section.settings.supabase_url }}';
+    const SUPABASE_ANON_KEY = '{{ section.settings.supabase_anon_key }}';
+
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+      console.error('Supabase credentials not configured');
+      return;
+    }
+
+    async function getCurrentChallenge() {
+      try {
+        const settingsResponse = await fetch(`${SUPABASE_URL}/rest/v1/challenge_settings?id=eq.1`, {
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+          }
+        });
+        const settings = await settingsResponse.json();
+
+        if (!settings || settings.length === 0) {
+          throw new Error('Challenge settings not found');
+        }
+
+        const startDate = new Date(settings[0].start_date + 'T00:00:00Z');
+        const now = new Date();
+
+        const daysSinceStart = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
+        const weeksSinceStart = Math.floor(daysSinceStart / 7);
+
+        const challengeId = (weeksSinceStart % 20) + 1;
+
+        const challengeResponse = await fetch(`${SUPABASE_URL}/rest/v1/weekly_challenges?id=eq.${challengeId}`, {
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+          }
+        });
+        const challenges = await challengeResponse.json();
+
+        if (!challenges || challenges.length === 0) {
+          throw new Error('Challenge not found');
+        }
+
+        return challenges[0];
+      } catch (error) {
+        console.error('Error fetching challenge:', error);
+        return null;
+      }
+    }
+
+    function renderChallenge(challenge) {
+      if (!challenge) {
+        return '<div style="text-align: center; color: {{ section.settings.card_text_color }};">Unable to load challenge. Please try again later.</div>';
+      }
+
+      return `
+        <div class="challenge-header">
+          <h2 class="challenge-title">${challenge.title}</h2>
+        </div>
+        <div class="challenge-cards">
+          <div class="challenge-card">
+            <h3 class="habit-title">${challenge.habit1_title}</h3>
+            <ul class="habit-benefits">
+              <li>${challenge.habit1_benefit1}</li>
+              <li>${challenge.habit1_benefit2}</li>
+              <li>${challenge.habit1_benefit3}</li>
+            </ul>
+          </div>
+          <div class="challenge-card">
+            <h3 class="habit-title">${challenge.habit2_title}</h3>
+            <ul class="habit-benefits">
+              <li>${challenge.habit2_benefit1}</li>
+              <li>${challenge.habit2_benefit2}</li>
+              <li>${challenge.habit2_benefit3}</li>
+            </ul>
+          </div>
+          <div class="challenge-card">
+            <h3 class="habit-title">${challenge.habit3_title}</h3>
+            <ul class="habit-benefits">
+              <li>${challenge.habit3_benefit1}</li>
+              <li>${challenge.habit3_benefit2}</li>
+              <li>${challenge.habit3_benefit3}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="challenge-footer">
+          <p class="challenge-description">
+            Each week presents a fresh focus to help you build sustainable habits that enhance your physical performance, mental clarity, and overall wellbeing. Our curated rotation is designed to support your journey toward peak health through evidence-based lifestyle practices.
+          </p>
+        </div>
+      `;
+    }
+
+    const challenge = await getCurrentChallenge();
+    const contentEl = document.getElementById('weekly-challenge-content');
+    if (contentEl) {
+      contentEl.className = '';
+      contentEl.innerHTML = renderChallenge(challenge);
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Weekly Challenge",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Supabase Configuration"
+    },
+    {
+      "type": "text",
+      "id": "supabase_url",
+      "label": "Supabase URL",
+      "info": "Your Supabase project URL"
+    },
+    {
+      "type": "text",
+      "id": "supabase_anon_key",
+      "label": "Supabase Anon Key",
+      "info": "Your Supabase anonymous key"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Card Background Color",
+      "default": "rgba(255, 255, 255, 0.05)"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card Border Color",
+      "default": "rgba(255, 255, 255, 0.1)"
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Card Title Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "card_text_color",
+      "label": "Card Text Color",
+      "default": "rgba(255, 255, 255, 0.8)"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color (Arrow)",
+      "default": "#FFFFFF"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Weekly Challenge"
+    }
+  ]
+}
+{% endschema %}

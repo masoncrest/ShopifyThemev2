@@ -1,0 +1,65 @@
+{% comment %}
+  Legal pages template (Privacy Policy, Terms of Service, etc.)
+{% endcomment %}
+
+<div class="section" style="background-color: var(--color-graphite); min-height: 60vh;">
+  <div class="container" style="max-width: 900px;">
+    <div style="margin-bottom: 3rem;">
+      <a href="/" style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem; display: inline-flex; align-items: center; gap: 0.5rem;">
+        ← Back to Home
+      </a>
+    </div>
+
+    <h1 style="margin-bottom: 2rem; font-size: 2.5rem;">{{ page.title }}</h1>
+
+    <div style="line-height: 1.9; color: rgba(255, 255, 255, 0.85); font-size: 1.05rem;">
+      {{ page.content }}
+    </div>
+
+    <div style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+      <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem;">
+        Last updated: {{ page.updated_at | date: "%B %d, %Y" }}
+      </p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .container h2 {
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    color: var(--color-warm-offwhite);
+  }
+
+  .container h3 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    color: var(--color-warm-offwhite);
+  }
+
+  .container p {
+    margin-bottom: 1.5rem;
+  }
+
+  .container ul,
+  .container ol {
+    margin-bottom: 1.5rem;
+    padding-left: 2rem;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .container li {
+    margin-bottom: 0.8rem;
+  }
+
+  .container a {
+    color: var(--color-warm-offwhite);
+    text-decoration: underline;
+  }
+
+  .container a:hover {
+    color: var(--color-white);
+  }
+</style>

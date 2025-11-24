@@ -1,0 +1,172 @@
+{% comment %}
+  Header navigation with logo, menu, search, and cart
+{% endcomment %}
+
+<header class="header" data-section-id="{{ section.id }}" data-section-type="header">
+  <div class="header-container">
+    <a href="/" class="header-logo">
+      {%- if settings.logo != blank -%}
+        <img src="{{ settings.logo | image_url: width: 200 }}" alt="{{ shop.name }}" width="200" height="auto">
+      {%- else -%}
+        MASON CREST
+      {%- endif -%}
+    </a>
+
+    <nav class="header-nav">
+      <a href="/">{{ section.settings.menu_home | default: 'Home' }}</a>
+      <a href="/collections/all">{{ section.settings.menu_shop | default: 'Shop' }}</a>
+
+      <div class="dropdown">
+        <a href="/collections/all" class="dropdown-toggle">{{ section.settings.menu_categories | default: 'Categories' }}</a>
+        <div class="dropdown-content">
+          {%- for collection in collections -%}
+            {%- if collection.all_products_count > 0 -%}
+              <a href="{{ collection.url }}">{{ collection.title }}</a>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <a href="/pages/about">{{ section.settings.menu_about | default: 'About' }}</a>
+      <a href="/pages/contact">{{ section.settings.menu_contact | default: 'Contact' }}</a>
+      <a href="/cart">{{ section.settings.menu_cart | default: 'Cart' }}</a>
+    </nav>
+
+    <div class="header-icons">
+      <button class="header-icon search-trigger" aria-label="Search">
+        <img src="{{ 'icon-search.svg' | asset_url }}" alt="Search" width="20" height="20">
+      </button>
+      <a href="/cart" class="header-icon cart-trigger" aria-label="Cart">
+        <img src="{{ 'icon-cart.svg' | asset_url }}" alt="Cart" width="20" height="20">
+        <span class="cart-count" data-cart-count>{{ cart.item_count }}</span>
+      </a>
+      <button class="mobile-menu-toggle header-icon" aria-label="Menu">
+        <img src="{{ 'icon-menu.svg' | asset_url }}" alt="Menu" width="24" height="24">
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu-overlay"></div>
+<div class="mobile-menu">
+  <div class="mobile-menu-header">
+    <div class="header-logo">
+      {%- if settings.logo != blank -%}
+        <img src="{{ settings.logo | image_url: width: 150 }}" alt="{{ shop.name }}" width="150" height="auto">
+      {%- else -%}
+        MC
+      {%- endif -%}
+    </div>
+    <button class="mobile-menu-close">
+      <img src="{{ 'icon-close.svg' | asset_url }}" alt="Close" width="24" height="24">
+    </button>
+  </div>
+  <ul class="mobile-menu-links">
+    <li><a href="/">{{ section.settings.menu_home | default: 'Home' }}</a></li>
+    <li><a href="/collections/all">{{ section.settings.menu_shop | default: 'Shop' }}</a></li>
+    <li>
+      <strong>{{ section.settings.menu_categories | default: 'Categories' }}</strong>
+      <ul style="margin-top: 1rem; padding-left: 1rem;">
+        {%- for collection in collections -%}
+          {%- if collection.all_products_count > 0 -%}
+            <li style="margin-bottom: 0.8rem;">
+              <a href="{{ collection.url }}" style="font-size: 0.95rem; text-transform: none;">{{ collection.title }}</a>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </li>
+    <li><a href="/pages/about">{{ section.settings.menu_about | default: 'About' }}</a></li>
+    <li><a href="/pages/contact">{{ section.settings.menu_contact | default: 'Contact' }}</a></li>
+    <li><a href="/cart">{{ section.settings.menu_cart | default: 'Cart' }}</a></li>
+  </ul>
+</div>
+
+<div class="modal search-modal">
+  <div class="modal-content">
+    <button class="modal-close search-close" aria-label="Close search">&times;</button>
+    <h2 style="margin-bottom: 2rem;">Search Products</h2>
+    <form action="/search" method="get" role="search">
+      <input
+        type="search"
+        name="q"
+        class="search-input"
+        placeholder="{{ section.settings.search_placeholder | default: 'Search for products...' }}"
+        autocomplete="off"
+      >
+    </form>
+    <div id="search-results" style="margin-top: 2rem;"></div>
+  </div>
+</div>
+
+<style>
+  .cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: var(--color-white);
+    color: var(--color-black);
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 600;
+  }
+
+  .header-icon {
+    position: relative;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "text",
+      "id": "menu_home",
+      "label": "Home Menu Text",
+      "default": "Home"
+    },
+    {
+      "type": "text",
+      "id": "menu_shop",
+      "label": "Shop Menu Text",
+      "default": "Shop"
+    },
+    {
+      "type": "text",
+      "id": "menu_categories",
+      "label": "Categories Menu Text",
+      "default": "Categories"
+    },
+    {
+      "type": "text",
+      "id": "menu_about",
+      "label": "About Menu Text",
+      "default": "About"
+    },
+    {
+      "type": "text",
+      "id": "menu_contact",
+      "label": "Contact Menu Text",
+      "default": "Contact"
+    },
+    {
+      "type": "text",
+      "id": "search_placeholder",
+      "label": "Search Placeholder Text",
+      "default": "Search for products..."
+    },
+    {
+      "type": "text",
+      "id": "menu_cart",
+      "label": "Cart Menu Text",
+      "default": "Cart"
+    }
+  ]
+}
+{% endschema %}

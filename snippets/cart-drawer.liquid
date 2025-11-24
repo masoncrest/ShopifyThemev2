@@ -1,0 +1,105 @@
+{% comment %}
+  Cart drawer snippet
+{% endcomment %}
+
+<div class="cart-overlay"></div>
+<div class="cart-drawer">
+  <div style="padding: 2rem; height: 100%; display: flex; flex-direction: column;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+      <h2 style="margin: 0;">Your Cart ({{ cart.item_count }})</h2>
+      <button class="cart-close" style="background: none; border: none; color: white; font-size: 2rem; cursor: pointer; opacity: 0.7; transition: opacity 0.3s;">
+        &times;
+      </button>
+    </div>
+
+    <div id="cart-items" style="flex: 1; overflow-y: auto; margin-bottom: 2rem;">
+      {%- if cart.item_count > 0 -%}
+        {%- for item in cart.items -%}
+          <div class="cart-item" data-line="{{ forloop.index }}" style="display: flex; gap: 1.5rem; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+            <div style="width: 100px; height: 100px; flex-shrink: 0;">
+              {%- if item.image != blank -%}
+                <img src="{{ item.image | image_url: width: 200 }}" alt="{{ item.title }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
+              {%- endif -%}
+            </div>
+
+            <div style="flex: 1;">
+              <h3 style="font-size: 1rem; margin-bottom: 0.5rem;">{{ item.product.title }}</h3>
+              {%- if item.variant.title != 'Default Title' -%}
+                <p style="font-size: 0.85rem; color: rgba(255, 255, 255, 0.7); margin-bottom: 0.5rem;">{{ item.variant.title }}</p>
+              {%- endif -%}
+              <p style="font-weight: 600; margin-bottom: 1rem;">{{ item.final_price | money }}</p>
+
+              <div style="display: flex; gap: 1rem; align-items: center;">
+                <div style="display: flex; align-items: center; background-color: rgba(255, 255, 255, 0.1); border-radius: 4px;">
+                  <button
+                    class="cart-qty-btn"
+                    data-line="{{ forloop.index }}"
+                    data-qty="{{ item.quantity | minus: 1 }}"
+                    style="padding: 0.5rem 1rem; background: none; border: none; color: white; cursor: pointer;"
+                  >
+                    -
+                  </button>
+                  <span style="padding: 0 1rem;">{{ item.quantity }}</span>
+                  <button
+                    class="cart-qty-btn"
+                    data-line="{{ forloop.index }}"
+                    data-qty="{{ item.quantity | plus: 1 }}"
+                    style="padding: 0.5rem 1rem; background: none; border: none; color: white; cursor: pointer;"
+                  >
+                    +
+                  </button>
+                </div>
+                <button
+                  class="cart-remove-btn"
+                  data-line="{{ forloop.index }}"
+                  style="background: none; border: none; color: #FF5252; cursor: pointer; font-size: 0.85rem; text-decoration: underline;"
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        <div style="text-align: center; padding: 4rem 2rem;">
+          <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 2rem;">Your cart is empty</p>
+          <a href="/collections/all" class="btn">Start Shopping</a>
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if cart.item_count > 0 -%}
+      <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 1.5rem;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 1.5rem; font-size: 1.2rem; font-weight: 600;">
+          <span>Subtotal</span>
+          <span id="cart-subtotal">{{ cart.total_price | money }}</span>
+        </div>
+        <p style="font-size: 0.85rem; color: rgba(255, 255, 255, 0.7); margin-bottom: 1.5rem;">Shipping calculated at checkout</p>
+        <a href="/checkout" class="btn" style="width: 100%; text-align: center; display: block;">Checkout</a>
+        <button class="btn-secondary cart-close" style="width: 100%; text-align: center; display: block; margin-top: 1rem;">Continue Shopping</button>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+<style>
+  .cart-item {
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .cart-qty-btn:hover,
+  .cart-close:hover {
+    opacity: 1;
+  }
+</style>

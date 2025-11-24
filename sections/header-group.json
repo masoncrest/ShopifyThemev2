@@ -1,0 +1,17 @@
+{
+  "name": "Header",
+  "type": "header",
+  "sections": {
+    "header": {
+      "type": "header",
+      "settings": {
+        "menu_home": "Home",
+        "menu_all_products": "All Products",
+        "menu_categories": "Categories",
+        "menu_about": "About",
+        "menu_contact": "Contact",
+        "search_placeholder": "Search for products..."
+      }
+    }
+  }
+}

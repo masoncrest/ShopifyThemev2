@@ -1,0 +1,84 @@
+{% comment %}
+  Search results page
+{% endcomment %}
+
+<div class="section">
+  <div class="container">
+    <div style="margin-bottom: 3rem; text-align: center;">
+      <h1 style="margin-bottom: 1rem;">Search Results</h1>
+      {% if search.performed %}
+        <p style="color: rgba(255, 255, 255, 0.7);">
+          {% if search.results_count > 0 %}
+            Found {{ search.results_count }} {% if search.results_count == 1 %}result{% else %}results{% endif %} for "{{ search.terms }}"
+          {% else %}
+            No results found for "{{ search.terms }}"
+          {% endif %}
+        </p>
+      {% endif %}
+    </div>
+
+    <div style="margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+      <form action="/search" method="get" role="search">
+        <input
+          type="search"
+          name="q"
+          value="{{ search.terms | escape }}"
+          placeholder="Search products..."
+          class="search-input"
+          style="width: 100%;"
+        >
+      </form>
+    </div>
+
+    {% if search.performed %}
+      {% if search.results_count > 0 %}
+        <div class="product-grid">
+          {% for item in search.results %}
+            {% if item.object_type == 'product' %}
+              <a href="{{ item.url }}" class="product-card">
+                <div class="product-image-wrapper">
+                  {% if item.featured_image %}
+                    <img
+                      src="{{ item.featured_image | image_url: width: 600 }}"
+                      alt="{{ item.title }}"
+                      class="product-image"
+                      loading="lazy"
+                    >
+                  {% endif %}
+                </div>
+                <div class="product-info">
+                  <h3 class="product-title">{{ item.title }}</h3>
+                  <p class="product-price">{{ item.price | money }}</p>
+                </div>
+              </a>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+        {% if paginate.pages > 1 %}
+          <div style="margin-top: 4rem; text-align: center;">
+            {% if paginate.previous %}
+              <a href="{{ paginate.previous.url }}" class="btn" style="margin: 0 0.5rem;">← Previous</a>
+            {% endif %}
+
+            <span style="margin: 0 1rem; color: rgba(255, 255, 255, 0.7);">
+              Page {{ paginate.current_page }} of {{ paginate.pages }}
+            </span>
+
+            {% if paginate.next %}
+              <a href="{{ paginate.next.url }}" class="btn" style="margin: 0 0.5rem;">Next →</a>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% else %}
+        <div style="text-align: center; padding: 4rem 2rem;">
+          <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 2rem;">Try different keywords or browse our collections</p>
+          <a href="/collections/all" class="btn">View All Products</a>
+        </div>
+      {% endif %}
+    {% endif %}
+  </div>
+</div>
+
+{% paginate search.results by 12 %}
+{% endpaginate %}

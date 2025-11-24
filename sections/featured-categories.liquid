@@ -1,0 +1,125 @@
+{% comment %}
+  Featured categories section
+{% endcomment %}
+
+<section id="featured_categories" class="section" style="display: none; background-color: {{ section.settings.background_color }};">
+  <div class="container">
+    {%- if section.settings.section_title != blank -%}
+      <h2 class="section-title" style="color: {{ section.settings.title_color }};">
+        {{ section.settings.section_title }}
+      </h2>
+    {%- endif -%}
+
+    <div class="product-grid">
+      {%- for block in section.blocks -%}
+        {%- assign collection = collections[block.settings.collection] -%}
+        {%- if collection != blank -%}
+          <a href="{{ collection.url }}" class="product-card" {{ block.shopify_attributes }}>
+            <div class="product-image-wrapper">
+              {%- if block.settings.custom_image != blank -%}
+                <img
+                  src="{{ block.settings.custom_image | image_url: width: 600 }}"
+                  alt="{{ collection.title }}"
+                  class="product-image"
+                  loading="lazy"
+                >
+              {%- elsif collection.image != blank -%}
+                <img
+                  src="{{ collection.image | image_url: width: 600 }}"
+                  alt="{{ collection.title }}"
+                  class="product-image"
+                  loading="lazy"
+                >
+              {%- elsif collection.products.first.featured_image != blank -%}
+                <img
+                  src="{{ collection.products.first.featured_image | image_url: width: 600 }}"
+                  alt="{{ collection.title }}"
+                  class="product-image"
+                  loading="lazy"
+                >
+              {%- else -%}
+                <div class="product-image" style="background-color: rgba(255, 255, 255, 0.1);"></div>
+              {%- endif -%}
+            </div>
+            <div class="product-info">
+              <h3 class="product-title" style="color: {{ section.settings.card_title_color }};">
+                {{ collection.title }}
+              </h3>
+              <p style="color: {{ section.settings.card_text_color }}; font-size: 0.9rem; margin: 0;">
+                {{ collection.products.size }} {{ section.settings.products_text | default: 'Products' }}
+              </p>
+            </div>
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Categories",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Shop By Category"
+    },
+    {
+      "type": "text",
+      "id": "products_text",
+      "label": "Products Text",
+      "default": "Products"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Section Title Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Card Title Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "card_text_color",
+      "label": "Card Text Color",
+      "default": "#F5F5F5"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_image",
+          "label": "Custom Image (Optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Categories",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

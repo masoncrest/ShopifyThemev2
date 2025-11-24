@@ -1,0 +1,172 @@
+{% comment %}
+  Footer with three columns and centered logo
+{% endcomment %}
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-grid">
+      <div class="footer-column">
+        <h4>{{ section.settings.column_1_heading | default: 'Shop' }}</h4>
+        <ul class="footer-links">
+          <li><a href="/collections/all">{{ section.settings.link_all_products | default: 'All Products' }}</a></li>
+          <li><a href="/collections">{{ section.settings.link_categories | default: 'Categories' }}</a></li>
+          <li><a href="/collections/best-sellers">{{ section.settings.link_best_sellers | default: 'Best Sellers' }}</a></li>
+          <li><a href="/collections/new-arrivals">{{ section.settings.link_new_arrivals | default: 'New Arrivals' }}</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>{{ section.settings.column_2_heading | default: 'About' }}</h4>
+        <ul class="footer-links">
+          <li><a href="/pages/our-story">{{ section.settings.link_our_story | default: 'Our Story' }}</a></li>
+          <li><a href="/pages/mission">{{ section.settings.link_mission | default: 'Mission' }}</a></li>
+          <li><a href="/pages/sustainability">{{ section.settings.link_sustainability | default: 'Sustainability' }}</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>{{ section.settings.column_3_heading | default: 'Support' }}</h4>
+        <ul class="footer-links">
+          <li><a href="/pages/contact">{{ section.settings.link_contact | default: 'Contact' }}</a></li>
+          <li><a href="/pages/faq">{{ section.settings.link_faq | default: 'FAQ' }}</a></li>
+          <li><a href="/policies/shipping-policy">{{ section.settings.link_shipping | default: 'Shipping & Returns' }}</a></li>
+          <li><a href="/policies/privacy-policy">{{ section.settings.link_privacy | default: 'Privacy Policy' }}</a></li>
+          <li><a href="/policies/terms-of-service">{{ section.settings.link_terms | default: 'Terms of Service' }}</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-logo">
+        {%- if settings.logo != blank -%}
+          <img src="{{ settings.logo | image_url: width: 180 }}" alt="{{ shop.name }}" width="180" height="auto">
+        {%- else -%}
+          MASON CREST
+        {%- endif -%}
+      </div>
+      <p style="margin-top: 1.5rem; color: rgba(255, 255, 255, 0.6); font-size: 0.85rem;">
+        &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ section.settings.copyright_text | default: 'All rights reserved.' }}
+      </p>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Column 1 - Shop"
+    },
+    {
+      "type": "text",
+      "id": "column_1_heading",
+      "label": "Column 1 Heading",
+      "default": "Shop"
+    },
+    {
+      "type": "text",
+      "id": "link_all_products",
+      "label": "All Products Link Text",
+      "default": "All Products"
+    },
+    {
+      "type": "text",
+      "id": "link_categories",
+      "label": "Categories Link Text",
+      "default": "Categories"
+    },
+    {
+      "type": "text",
+      "id": "link_best_sellers",
+      "label": "Best Sellers Link Text",
+      "default": "Best Sellers"
+    },
+    {
+      "type": "text",
+      "id": "link_new_arrivals",
+      "label": "New Arrivals Link Text",
+      "default": "New Arrivals"
+    },
+    {
+      "type": "header",
+      "content": "Column 2 - About"
+    },
+    {
+      "type": "text",
+      "id": "column_2_heading",
+      "label": "Column 2 Heading",
+      "default": "About"
+    },
+    {
+      "type": "text",
+      "id": "link_our_story",
+      "label": "Our Story Link Text",
+      "default": "Our Story"
+    },
+    {
+      "type": "text",
+      "id": "link_mission",
+      "label": "Mission Link Text",
+      "default": "Mission"
+    },
+    {
+      "type": "text",
+      "id": "link_sustainability",
+      "label": "Sustainability Link Text",
+      "default": "Sustainability"
+    },
+    {
+      "type": "header",
+      "content": "Column 3 - Support"
+    },
+    {
+      "type": "text",
+      "id": "column_3_heading",
+      "label": "Column 3 Heading",
+      "default": "Support"
+    },
+    {
+      "type": "text",
+      "id": "link_contact",
+      "label": "Contact Link Text",
+      "default": "Contact"
+    },
+    {
+      "type": "text",
+      "id": "link_faq",
+      "label": "FAQ Link Text",
+      "default": "FAQ"
+    },
+    {
+      "type": "text",
+      "id": "link_shipping",
+      "label": "Shipping Link Text",
+      "default": "Shipping & Returns"
+    },
+    {
+      "type": "text",
+      "id": "link_privacy",
+      "label": "Privacy Policy Link Text",
+      "default": "Privacy Policy"
+    },
+    {
+      "type": "text",
+      "id": "link_terms",
+      "label": "Terms Link Text",
+      "default": "Terms of Service"
+    },
+    {
+      "type": "header",
+      "content": "Copyright"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright Text",
+      "default": "All rights reserved."
+    }
+  ]
+}
+{% endschema %}
