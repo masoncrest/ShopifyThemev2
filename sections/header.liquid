@@ -14,22 +14,19 @@
 
     <nav class="header-nav">
       <a href="/">{{ section.settings.menu_home | default: 'Home' }}</a>
-      <a href="/collections/all">{{ section.settings.menu_shop | default: 'Shop' }}</a>
+      <a href="https://mason-crest.myshopify.com/pages/about-us">About</a>
+      <a href="https://mason-crest.myshopify.com/pages/faqs">FAQs</a>
+      <a href="https://mason-crest.myshopify.com/pages/shipping">Shipping</a>
+      <a href="https://mason-crest.myshopify.com/pages/contact-us">Contact</a>
 
       <div class="dropdown">
-        <a href="/collections/all" class="dropdown-toggle">{{ section.settings.menu_categories | default: 'Categories' }}</a>
+        <a href="#" class="dropdown-toggle">Policies</a>
         <div class="dropdown-content">
-          {%- for collection in collections -%}
-            {%- if collection.all_products_count > 0 -%}
-              <a href="{{ collection.url }}">{{ collection.title }}</a>
-            {%- endif -%}
-          {%- endfor -%}
+          <a href="https://mason-crest.myshopify.com/pages/privacy-policy">Privacy Policy</a>
+          <a href="https://mason-crest.myshopify.com/pages/terms-of-service">Terms of Service</a>
+          <a href="https://mason-crest.myshopify.com/pages/refund-policy">Refund Policy</a>
         </div>
       </div>
-
-      <a href="/pages/about">{{ section.settings.menu_about | default: 'About' }}</a>
-      <a href="/pages/contact">{{ section.settings.menu_contact | default: 'Contact' }}</a>
-      <a href="/cart">{{ section.settings.menu_cart | default: 'Cart' }}</a>
     </nav>
 
     <div class="header-icons">
@@ -63,22 +60,24 @@
   </div>
   <ul class="mobile-menu-links">
     <li><a href="/">{{ section.settings.menu_home | default: 'Home' }}</a></li>
-    <li><a href="/collections/all">{{ section.settings.menu_shop | default: 'Shop' }}</a></li>
+    <li><a href="https://mason-crest.myshopify.com/pages/about-us">About</a></li>
+    <li><a href="https://mason-crest.myshopify.com/pages/faqs">FAQs</a></li>
+    <li><a href="https://mason-crest.myshopify.com/pages/shipping">Shipping</a></li>
+    <li><a href="https://mason-crest.myshopify.com/pages/contact-us">Contact</a></li>
     <li>
-      <strong>{{ section.settings.menu_categories | default: 'Categories' }}</strong>
+      <strong>Policies</strong>
       <ul style="margin-top: 1rem; padding-left: 1rem;">
-        {%- for collection in collections -%}
-          {%- if collection.all_products_count > 0 -%}
-            <li style="margin-bottom: 0.8rem;">
-              <a href="{{ collection.url }}" style="font-size: 0.95rem; text-transform: none;">{{ collection.title }}</a>
-            </li>
-          {%- endif -%}
-        {%- endfor -%}
+        <li style="margin-bottom: 0.8rem;">
+          <a href="https://mason-crest.myshopify.com/pages/privacy-policy" style="font-size: 0.95rem; text-transform: none;">Privacy Policy</a>
+        </li>
+        <li style="margin-bottom: 0.8rem;">
+          <a href="https://mason-crest.myshopify.com/pages/terms-of-service" style="font-size: 0.95rem; text-transform: none;">Terms of Service</a>
+        </li>
+        <li style="margin-bottom: 0.8rem;">
+          <a href="https://mason-crest.myshopify.com/pages/refund-policy" style="font-size: 0.95rem; text-transform: none;">Refund Policy</a>
+        </li>
       </ul>
     </li>
-    <li><a href="/pages/about">{{ section.settings.menu_about | default: 'About' }}</a></li>
-    <li><a href="/pages/contact">{{ section.settings.menu_contact | default: 'Contact' }}</a></li>
-    <li><a href="/cart">{{ section.settings.menu_cart | default: 'Cart' }}</a></li>
   </ul>
 </div>
 
