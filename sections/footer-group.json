@@ -4,24 +4,10 @@
   "sections": {
     "footer": {
       "type": "footer",
-      "settings": {
-        "column_1_heading": "Shop",
-        "link_all_products": "All Products",
-        "link_categories": "Categories",
-        "link_best_sellers": "Best Sellers",
-        "link_new_arrivals": "New Arrivals",
-        "column_2_heading": "About",
-        "link_our_story": "Our Story",
-        "link_mission": "Mission",
-        "link_sustainability": "Sustainability",
-        "column_3_heading": "Support",
-        "link_contact": "Contact",
-        "link_faq": "FAQ",
-        "link_shipping": "Shipping & Returns",
-        "link_privacy": "Privacy Policy",
-        "link_terms": "Terms of Service",
-        "copyright_text": "All rights reserved."
-      }
+      "settings": {}
     }
-  }
+  },
+  "order": [
+    "footer"
+  ]
 }
