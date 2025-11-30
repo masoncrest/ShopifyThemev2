@@ -14,17 +14,17 @@
 
     <nav class="header-nav">
       <a href="/">{{ section.settings.menu_home | default: 'Home' }}</a>
-      <a href="https://mason-crest.myshopify.com/pages/about-us">About</a>
-      <a href="https://mason-crest.myshopify.com/pages/faqs">FAQs</a>
-      <a href="https://mason-crest.myshopify.com/pages/shipping">Shipping</a>
-      <a href="https://mason-crest.myshopify.com/pages/contact-us">Contact</a>
+      <a href="{{ pages.about-us.url }}">About</a>
+      <a href="{{ pages.faqs.url }}">FAQs</a>
+      <a href="{{ pages.shipping.url }}">Shipping</a>
+      <a href="{{ pages.contact-us.url }}">Contact</a>
 
       <div class="dropdown">
         <a href="#" class="dropdown-toggle">Policies</a>
         <div class="dropdown-content">
-          <a href="https://mason-crest.myshopify.com/pages/privacy-policy">Privacy Policy</a>
-          <a href="https://mason-crest.myshopify.com/pages/terms-of-service">Terms of Service</a>
-          <a href="https://mason-crest.myshopify.com/pages/refund-policy">Refund Policy</a>
+          <a href="{{ pages.privacy-policy.url }}">Privacy Policy</a>
+          <a href="{{ pages.terms-of-service.url }}">Terms of Service</a>
+          <a href="{{ pages.refund-policy.url }}">Refund Policy</a>
         </div>
       </div>
     </nav>
@@ -33,10 +33,10 @@
       <button class="header-icon search-trigger" aria-label="Search">
         <img src="{{ 'icon-search.svg' | asset_url }}" alt="Search" width="20" height="20">
       </button>
-      <a href="https://mason-crest.myshopify.com/account" class="header-icon" aria-label="Account">
+      <a href="{{ routes.account_url }}" class="header-icon" aria-label="Account">
         <img src="{{ 'icon-account.svg' | asset_url }}" alt="Account" width="20" height="20">
       </a>
-      <a href="https://mason-crest.myshopify.com/cart" class="header-icon cart-trigger" aria-label="Cart">
+      <a href="{{ routes.cart_url }}" class="header-icon cart-trigger" aria-label="Cart">
         <img src="{{ 'icon-cart.svg' | asset_url }}" alt="Cart" width="20" height="20">
         <span class="cart-count" data-cart-count>{{ cart.item_count }}</span>
       </a>
@@ -63,29 +63,29 @@
   </div>
   <ul class="mobile-menu-links">
     <li><a href="/">{{ section.settings.menu_home | default: 'Home' }}</a></li>
-    <li><a href="https://mason-crest.myshopify.com/pages/about-us">About</a></li>
-    <li><a href="https://mason-crest.myshopify.com/pages/faqs">FAQs</a></li>
-    <li><a href="https://mason-crest.myshopify.com/pages/shipping">Shipping</a></li>
-    <li><a href="https://mason-crest.myshopify.com/pages/contact-us">Contact</a></li>
+    <li><a href="{{ pages.about-us.url }}">About</a></li>
+    <li><a href="{{ pages.faqs.url }}">FAQs</a></li>
+    <li><a href="{{ pages.shipping.url }}">Shipping</a></li>
+    <li><a href="{{ pages.contact-us.url }}">Contact</a></li>
     <li>
       <strong>Policies</strong>
       <ul style="margin-top: 1rem; padding-left: 1rem;">
         <li style="margin-bottom: 0.8rem;">
-          <a href="https://mason-crest.myshopify.com/pages/privacy-policy" style="font-size: 0.95rem; text-transform: none;">Privacy Policy</a>
+          <a href="{{ pages.privacy-policy.url }}" style="font-size: 0.95rem; text-transform: none;">Privacy Policy</a>
         </li>
         <li style="margin-bottom: 0.8rem;">
-          <a href="https://mason-crest.myshopify.com/pages/terms-of-service" style="font-size: 0.95rem; text-transform: none;">Terms of Service</a>
+          <a href="{{ pages.terms-of-service.url }}" style="font-size: 0.95rem; text-transform: none;">Terms of Service</a>
         </li>
         <li style="margin-bottom: 0.8rem;">
-          <a href="https://mason-crest.myshopify.com/pages/refund-policy" style="font-size: 0.95rem; text-transform: none;">Refund Policy</a>
+          <a href="{{ pages.refund-policy.url }}" style="font-size: 0.95rem; text-transform: none;">Refund Policy</a>
         </li>
       </ul>
     </li>
     <li style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1);">
-      <a href="https://mason-crest.myshopify.com/account">My Account</a>
+      <a href="{{ routes.account_url }}">My Account</a>
     </li>
     <li>
-      <a href="https://mason-crest.myshopify.com/cart">Cart ({{ cart.item_count }})</a>
+      <a href="{{ routes.cart_url }}">Cart ({{ cart.item_count }})</a>
     </li>
   </ul>
 </div>
