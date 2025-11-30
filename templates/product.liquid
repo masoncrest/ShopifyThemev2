@@ -4,9 +4,9 @@
 
 <div class="section" style="min-height: 100vh; padding-top: 2rem; padding-bottom: 2rem; display: flex; align-items: center;">
   <div class="container">
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start;">
 
-      <div class="product-media">
+      <div class="product-media" style="position: sticky; top: 120px; align-self: flex-start;">
         {%- if product.images.size > 0 -%}
           <div id="product-main-image" style="margin-bottom: 1.5rem; background: rgba(255,255,255,0.05); border-radius: 12px; overflow: hidden; aspect-ratio: 1/1;">
             <img
