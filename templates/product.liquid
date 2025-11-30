@@ -2,53 +2,90 @@
   Product page template
 {% endcomment %}
 
-<div class="section" style="min-height: calc(100vh - 200px);">
+<div class="section" style="min-height: calc(100vh - 200px); padding-top: 3rem;">
   <div class="container">
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-bottom: 6rem;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; margin-bottom: 6rem; align-items: start;">
 
       <div class="product-media">
         {%- if product.images.size > 0 -%}
-          <div id="product-main-image" style="margin-bottom: 1.5rem;">
+          <div id="product-main-image" style="margin-bottom: 1.5rem; background: rgba(255,255,255,0.05); border-radius: 12px; overflow: hidden;">
             <img
               src="{{ product.featured_image | image_url: width: 1000 }}"
               alt="{{ product.title }}"
-              style="width: 100%; border-radius: 8px;"
+              style="width: 100%; display: block;"
               id="main-product-image"
             >
           </div>
 
           {%- if product.images.size > 1 -%}
-            <div style="display: flex; gap: 1rem; overflow-x: auto;">
+            <div style="display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 0.5rem;">
               {%- for image in product.images -%}
                 <img
-                  src="{{ image | image_url: width: 150 }}"
+                  src="{{ image | image_url: width: 200 }}"
                   alt="{{ product.title }}"
-                  style="width: 100px; height: 100px; object-fit: cover; border-radius: 4px; cursor: pointer; border: 2px solid transparent;"
-                  onclick="document.getElementById('main-product-image').src = '{{ image | image_url: width: 1000 }}'"
+                  style="width: 120px; height: 120px; object-fit: cover; border-radius: 8px; cursor: pointer; border: 3px solid transparent; flex-shrink: 0; background: rgba(255,255,255,0.05);"
+                  onclick="selectImage(this, '{{ image | image_url: width: 1000 }}')"
                   class="product-thumbnail"
                 >
               {%- endfor -%}
             </div>
           {%- endif -%}
         {%- else -%}
-          <div style="width: 100%; padding-top: 100%; background-color: rgba(255, 255, 255, 0.1); border-radius: 8px;"></div>
+          <div style="width: 100%; padding-top: 100%; background-color: rgba(255, 255, 255, 0.1); border-radius: 12px;"></div>
         {%- endif -%}
       </div>
 
       <div class="product-details">
-        <h1 style="margin-bottom: 1rem;">{{ product.title }}</h1>
+        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+          <div style="display: flex; gap: 0.25rem;">
+            <span style="color: #FFC107; font-size: 1.25rem;">★</span>
+            <span style="color: #FFC107; font-size: 1.25rem;">★</span>
+            <span style="color: #FFC107; font-size: 1.25rem;">★</span>
+            <span style="color: #FFC107; font-size: 1.25rem;">★</span>
+            <span style="color: #FFC107; font-size: 1.25rem;">★</span>
+          </div>
+          <span style="color: rgba(255,255,255,0.7); font-size: 0.95rem;">4.9/5 with 120+ Experts</span>
+        </div>
+
+        <h1 style="margin-bottom: 0.5rem; font-size: 2.25rem; line-height: 1.2;">{{ product.title }}</h1>
 
         {%- if product.vendor != blank -%}
-          <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 1.5rem;">{{ product.vendor }}</p>
+          <p style="color: rgba(255, 255, 255, 0.6); margin-bottom: 2rem; font-size: 0.95rem;">{{ product.vendor }}</p>
         {%- endif -%}
 
-        <div style="font-size: 2rem; font-weight: 600; margin-bottom: 2rem; color: var(--color-warm-offwhite);">
+        <div style="margin-bottom: 2rem;">
+          <span style="font-size: 2.5rem; font-weight: 700; color: var(--color-warm-offwhite);">
+            {{ product.price | money }}
+          </span>
           {%- if product.compare_at_price > product.price -%}
-            <span style="text-decoration: line-through; opacity: 0.6; font-size: 1.5rem; margin-right: 1rem;">
+            <span style="text-decoration: line-through; opacity: 0.5; font-size: 1.5rem; margin-left: 1rem; color: rgba(255,255,255,0.6);">
               {{ product.compare_at_price | money }}
             </span>
           {%- endif -%}
-          {{ product.price | money }}
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2rem;">
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink: 0;">
+              <circle cx="10" cy="10" r="9" stroke="#4ECDC4" stroke-width="2"/>
+              <path d="M6 10l3 3 5-6" stroke="#4ECDC4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span style="color: rgba(255,255,255,0.9); font-size: 0.95rem;">Trusted by Mobility Experts</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink: 0;">
+              <circle cx="10" cy="10" r="9" stroke="#4ECDC4" stroke-width="2"/>
+              <path d="M6 10l3 3 5-6" stroke="#4ECDC4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span style="color: rgba(255,255,255,0.9); font-size: 0.95rem;">Delivered in 2-5 Business Days</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink: 0;">
+              <circle cx="10" cy="10" r="9" stroke="#4ECDC4" stroke-width="2"/>
+              <path d="M6 10l3 3 5-6" stroke="#4ECDC4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span style="color: rgba(255,255,255,0.9); font-size: 0.95rem;">30-Day Performance Guarantee</span>
+          </div>
         </div>
 
         {% form 'product', product %}
@@ -60,9 +97,9 @@
                 style="
                   width: 100%;
                   padding: 1rem 1.5rem;
-                  background-color: rgba(255, 255, 255, 0.1);
+                  background-color: rgba(255, 255, 255, 0.08);
                   border: 1px solid rgba(255, 255, 255, 0.2);
-                  border-radius: 4px;
+                  border-radius: 6px;
                   color: #FFFFFF;
                   font-size: 1rem;
                 "
@@ -79,79 +116,76 @@
             <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
           {%- endif -%}
 
-          <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 2rem;">
-            <label style="font-weight: 500;">Quantity</label>
-            <input
-              type="number"
-              name="quantity"
-              value="1"
-              min="1"
-              style="
-                width: 80px;
-                padding: 0.8rem;
-                background-color: rgba(255, 255, 255, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.2);
-                border-radius: 4px;
-                color: #FFFFFF;
-                text-align: center;
-              "
+          <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+            <button
+              type="submit"
+              class="product-add-to-cart"
+              {% unless product.available %}disabled{% endunless %}
             >
-          </div>
-
-          <button
-            type="submit"
-            class="btn"
-            style="width: 100%; padding: 1.5rem; font-size: 1rem; margin-bottom: 1rem;"
-            {% unless product.available %}disabled{% endunless %}
-          >
-            {%- if product.available -%}
-              Add to Cart
-            {%- else -%}
-              Sold Out
-            {%- endif -%}
-          </button>
-        {% endform %}
-
-        {%- if product.available -%}
-          <p style="color: #4CAF50; font-size: 0.9rem; margin-bottom: 2rem;">✓ In Stock</p>
-        {%- else -%}
-          <p style="color: #FF5252; font-size: 0.9rem; margin-bottom: 2rem;">Out of Stock</p>
-        {%- endif -%}
-
-        <div class="product-tabs" style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 2rem;">
-          <div class="tab-buttons" style="display: flex; gap: 2rem; margin-bottom: 2rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
-            <button class="tab-btn active" data-tab="description" style="padding-bottom: 1rem; font-weight: 500; background: none; border: none; color: white; border-bottom: 2px solid white;">
-              Description
+              {%- if product.available -%}
+                ADD TO CART
+              {%- else -%}
+                SOLD OUT
+              {%- endif -%}
             </button>
-            <button class="tab-btn" data-tab="shipping" style="padding-bottom: 1rem; font-weight: 500; background: none; border: none; color: rgba(255,255,255,0.6); border-bottom: 2px solid transparent;">
-              Shipping & Returns
-            </button>
-            <button class="tab-btn" data-tab="specs" style="padding-bottom: 1rem; font-weight: 500; background: none; border: none; color: rgba(255,255,255,0.6); border-bottom: 2px solid transparent;">
-              Specifications
-            </button>
-          </div>
 
-          <div class="tab-content active" data-content="description">
-            <div style="line-height: 1.8; color: rgba(255, 255, 255, 0.9);">
-              {{ product.description }}
+            <div style="display: flex; align-items: center; border: 1px solid rgba(255,255,255,0.3); border-radius: 6px; background: rgba(255,255,255,0.05);">
+              <button type="button" onclick="decrementQty()" style="padding: 0 1.25rem; height: 56px; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; border-right: 1px solid rgba(255,255,255,0.2);">−</button>
+              <input
+                type="number"
+                name="quantity"
+                value="1"
+                min="1"
+                id="product-qty"
+                style="width: 70px; height: 56px; background: none; border: none; color: #FFFFFF; text-align: center; font-size: 1.1rem; font-weight: 500;"
+                readonly
+              >
+              <button type="button" onclick="incrementQty()" style="padding: 0 1.25rem; height: 56px; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; border-left: 1px solid rgba(255,255,255,0.2);">+</button>
             </div>
           </div>
+        {% endform %}
 
-          <div class="tab-content" data-content="shipping" style="display: none;">
-            <p style="line-height: 1.8; color: rgba(255, 255, 255, 0.9);">
-              Free standard shipping on orders over $100. Express shipping available at checkout.
-              Returns accepted within 30 days of purchase. Items must be in original condition with tags attached.
-            </p>
+        <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 2rem;">
+          <p style="color: rgba(255,255,255,0.85); font-size: 0.95rem; line-height: 1.6; margin: 0;">
+            <strong>Engineered for deep-tissue penetration and</strong> Stop wasting rapid relief—start demanding it.
+          </p>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 3rem;">
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink: 0;">
+              <circle cx="10" cy="10" r="9" stroke="#4ECDC4" stroke-width="2"/>
+              <path d="M6 10l3 3 5-6" stroke="#4ECDC4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span style="color: rgba(255,255,255,0.9); font-size: 0.95rem;">Myofascial Release: 5 Head Attachments for Targeted Therapy</span>
           </div>
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink: 0;">
+              <circle cx="10" cy="10" r="9" stroke="#4ECDC4" stroke-width="2"/>
+              <path d="M6 10l3 3 5-6" stroke="#4ECDC4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span style="color: rgba(255,255,255,0.9); font-size: 0.95rem;">Extended Power: 3 Hour Continuous Battery Life</span>
+          </div>
+        </div>
 
-          <div class="tab-content" data-content="specs" style="display: none;">
-            <p style="line-height: 1.8; color: rgba(255, 255, 255, 0.9);">
-              {%- if product.metafields.custom.specifications != blank -%}
-                {{ product.metafields.custom.specifications }}
-              {%- else -%}
-                Product specifications will be displayed here.
-              {%- endif -%}
-            </p>
+        <div style="border-top: 1px solid rgba(255,255,255,0.15); padding-top: 2.5rem;">
+          <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;">Customer Reviews</h3>
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+            <div style="display: flex; gap: 0.25rem;">
+              <span style="color: #FFC107; font-size: 1.1rem;">★</span>
+              <span style="color: #FFC107; font-size: 1.1rem;">★</span>
+              <span style="color: #FFC107; font-size: 1.1rem;">★</span>
+              <span style="color: #FFC107; font-size: 1.1rem;">★</span>
+              <span style="color: #FFC107; font-size: 1.1rem;">★</span>
+            </div>
+          </div>
+          <div style="display: flex; align-items: start; gap: 1rem; padding: 1.5rem; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+            <div style="width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.15); flex-shrink: 0;"></div>
+            <div>
+              <p style="color: rgba(255,255,255,0.9); line-height: 1.6; margin: 0;">
+                Gorever thanks to gills infamage and byte! the 3bout; 200 5url and 3 hour oook beats the 50-huck nersions I was oreviouslv icing.
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -196,38 +230,59 @@
   }
 
   .product-thumbnail:hover {
+    border-color: rgba(255,255,255,0.4) !important;
+  }
+
+  .product-thumbnail.active {
     border-color: var(--color-white) !important;
   }
 
-  .tab-btn.active {
-    color: white !important;
-    border-bottom-color: white !important;
+  .product-add-to-cart {
+    flex: 1;
+    padding: 1rem 2rem;
+    background: #4ECDC4;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    letter-spacing: 0.5px;
+  }
+
+  .product-add-to-cart:hover:not(:disabled) {
+    background: #45b8af;
+    transform: translateY(-1px);
+  }
+
+  .product-add-to-cart:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 </style>
 
 <script>
-  document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const tab = btn.dataset.tab;
+  function selectImage(thumbnail, imageUrl) {
+    document.getElementById('main-product-image').src = imageUrl;
+    document.querySelectorAll('.product-thumbnail').forEach(t => t.classList.remove('active'));
+    thumbnail.classList.add('active');
+  }
 
-      document.querySelectorAll('.tab-btn').forEach(b => {
-        b.classList.remove('active');
-        b.style.color = 'rgba(255,255,255,0.6)';
-        b.style.borderBottomColor = 'transparent';
-      });
-
-      document.querySelectorAll('.tab-content').forEach(c => {
-        c.classList.remove('active');
-        c.style.display = 'none';
-      });
-
-      btn.classList.add('active');
-      btn.style.color = 'white';
-      btn.style.borderBottomColor = 'white';
-
-      const content = document.querySelector(`[data-content="${tab}"]`);
-      content.classList.add('active');
-      content.style.display = 'block';
-    });
+  document.addEventListener('DOMContentLoaded', () => {
+    const firstThumb = document.querySelector('.product-thumbnail');
+    if (firstThumb) firstThumb.classList.add('active');
   });
+
+  function incrementQty() {
+    const input = document.getElementById('product-qty');
+    input.value = parseInt(input.value) + 1;
+  }
+
+  function decrementQty() {
+    const input = document.getElementById('product-qty');
+    if (parseInt(input.value) > 1) {
+      input.value = parseInt(input.value) - 1;
+    }
+  }
 </script>
