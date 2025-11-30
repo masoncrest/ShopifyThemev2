@@ -2,9 +2,9 @@
   Product page template
 {% endcomment %}
 
-<div class="section" style="min-height: calc(100vh - 200px); padding-top: 3rem;">
+<div class="section" style="min-height: 100vh; padding-top: 2rem; padding-bottom: 2rem; display: flex; align-items: center;">
   <div class="container">
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; margin-bottom: 6rem; align-items: start;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;">
 
       <div class="product-media">
         {%- if product.images.size > 0 -%}
@@ -36,7 +36,7 @@
       </div>
 
       <div class="product-details">
-        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
           <div style="display: flex; gap: 0.25rem;">
             <span style="color: #FFC107; font-size: 1.25rem;">★</span>
             <span style="color: #FFC107; font-size: 1.25rem;">★</span>
@@ -47,13 +47,13 @@
           <span style="color: rgba(255,255,255,0.7); font-size: 0.95rem;">4.9/5 with 120+ Experts</span>
         </div>
 
-        <h1 style="margin-bottom: 0.5rem; font-size: 2.25rem; line-height: 1.2;">{{ product.title }}</h1>
+        <h1 style="margin-bottom: 0.75rem; font-size: 2.25rem; line-height: 1.2;">{{ product.title }}</h1>
 
         {%- if product.vendor != blank -%}
-          <p style="color: rgba(255, 255, 255, 0.6); margin-bottom: 2rem; font-size: 0.95rem;">{{ product.vendor }}</p>
+          <p style="color: rgba(255, 255, 255, 0.6); margin-bottom: 2.5rem; font-size: 0.95rem;">{{ product.vendor }}</p>
         {%- endif -%}
 
-        <div style="margin-bottom: 2rem;">
+        <div style="margin-bottom: 2.5rem;">
           <span style="font-size: 2.5rem; font-weight: 700; color: var(--color-warm-offwhite);">
             {{ product.price | money }}
           </span>
@@ -62,30 +62,6 @@
               {{ product.compare_at_price | money }}
             </span>
           {%- endif -%}
-        </div>
-
-        <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2rem;">
-          <div style="display: flex; align-items: center; gap: 0.75rem;">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink: 0;">
-              <circle cx="10" cy="10" r="9" stroke="#4ECDC4" stroke-width="2"/>
-              <path d="M6 10l3 3 5-6" stroke="#4ECDC4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span style="color: rgba(255,255,255,0.9); font-size: 0.95rem;">Trusted by Mobility Experts</span>
-          </div>
-          <div style="display: flex; align-items: center; gap: 0.75rem;">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink: 0;">
-              <circle cx="10" cy="10" r="9" stroke="#4ECDC4" stroke-width="2"/>
-              <path d="M6 10l3 3 5-6" stroke="#4ECDC4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span style="color: rgba(255,255,255,0.9); font-size: 0.95rem;">Delivered in 2-5 Business Days</span>
-          </div>
-          <div style="display: flex; align-items: center; gap: 0.75rem;">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink: 0;">
-              <circle cx="10" cy="10" r="9" stroke="#4ECDC4" stroke-width="2"/>
-              <path d="M6 10l3 3 5-6" stroke="#4ECDC4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span style="color: rgba(255,255,255,0.9); font-size: 0.95rem;">30-Day Performance Guarantee</span>
-          </div>
         </div>
 
         {% form 'product', product %}
@@ -116,7 +92,7 @@
             <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
           {%- endif -%}
 
-          <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+          <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
             <button
               type="submit"
               class="product-add-to-cart"
@@ -145,30 +121,15 @@
           </div>
         {% endform %}
 
-        <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 2rem;">
-          <p style="color: rgba(255,255,255,0.85); font-size: 0.95rem; line-height: 1.6; margin: 0;">
-            <strong>Engineered for deep-tissue penetration and</strong> Stop wasting rapid relief—start demanding it.
-          </p>
-        </div>
-
-        <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 3rem;">
-          <div style="display: flex; align-items: center; gap: 0.75rem;">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink: 0;">
-              <circle cx="10" cy="10" r="9" stroke="#4ECDC4" stroke-width="2"/>
-              <path d="M6 10l3 3 5-6" stroke="#4ECDC4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span style="color: rgba(255,255,255,0.9); font-size: 0.95rem;">Myofascial Release: 5 Head Attachments for Targeted Therapy</span>
+        {%- if product.description != blank -%}
+          <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 2rem;">
+            <p style="color: rgba(255,255,255,0.85); font-size: 0.95rem; line-height: 1.6; margin: 0;">
+              {{ product.description }}
+            </p>
           </div>
-          <div style="display: flex; align-items: center; gap: 0.75rem;">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink: 0;">
-              <circle cx="10" cy="10" r="9" stroke="#4ECDC4" stroke-width="2"/>
-              <path d="M6 10l3 3 5-6" stroke="#4ECDC4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span style="color: rgba(255,255,255,0.9); font-size: 0.95rem;">Extended Power: 3 Hour Continuous Battery Life</span>
-          </div>
-        </div>
+        {%- endif -%}
 
-        <div style="border-top: 1px solid rgba(255,255,255,0.15); padding-top: 2.5rem;">
+        <div style="border-top: 1px solid rgba(255,255,255,0.15); padding-top: 2rem;">
           <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;">Customer Reviews</h3>
           <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
             <div style="display: flex; gap: 0.25rem;">
@@ -183,7 +144,7 @@
             <div style="width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.15); flex-shrink: 0;"></div>
             <div>
               <p style="color: rgba(255,255,255,0.9); line-height: 1.6; margin: 0;">
-                Gorever thanks to gills infamage and byte! the 3bout; 200 5url and 3 hour oook beats the 50-huck nersions I was oreviouslv icing.
+                Great product! Highly recommend for anyone looking for quality gear.
               </p>
             </div>
           </div>
