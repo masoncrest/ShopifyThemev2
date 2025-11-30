@@ -30,11 +30,8 @@
     </nav>
 
     <div class="header-icons">
-      <button class="header-icon search-trigger" aria-label="Search">
-        <img src="{{ 'icon-search.svg' | asset_url }}" alt="Search" width="20" height="20">
-      </button>
       <a href="{{ routes.account_url }}" class="header-icon" aria-label="Account">
-        <img src="{{ 'icon-account.svg' | asset_url }}" alt="Account" width="20" height="20">
+        <img src="{{ 'icon-account.svg' | asset_url }}" alt="Account" width="20" height="20" style="filter: brightness(0) invert(1);">
       </a>
       <a href="{{ routes.cart_url }}" class="header-icon cart-trigger" aria-label="Cart">
         <img src="{{ 'icon-cart.svg' | asset_url }}" alt="Cart" width="20" height="20">
@@ -88,23 +85,6 @@
       <a href="{{ routes.cart_url }}">Cart ({{ cart.item_count }})</a>
     </li>
   </ul>
-</div>
-
-<div class="modal search-modal">
-  <div class="modal-content">
-    <button class="modal-close search-close" aria-label="Close search">&times;</button>
-    <h2 style="margin-bottom: 2rem;">Search Products</h2>
-    <form action="/search" method="get" role="search">
-      <input
-        type="search"
-        name="q"
-        class="search-input"
-        placeholder="{{ section.settings.search_placeholder | default: 'Search for products...' }}"
-        autocomplete="off"
-      >
-    </form>
-    <div id="search-results" style="margin-top: 2rem;"></div>
-  </div>
 </div>
 
 <style>
