@@ -19,10 +19,7 @@ body {
 
 body.collection-page,
 body.product-page {
-  background-image: linear-gradient(rgba(26, 26, 26, 0.75), rgba(26, 26, 26, 0.75)), url('image.png');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  background-color: var(--color-graphite);
 }
 
 h1, h2, h3, h4, h5, h6 {
