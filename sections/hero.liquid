@@ -5,30 +5,6 @@
 <section id="hero" class="hero-section">
   <div id="hero-video-container" class="hero-video"></div>
   <div class="hero-overlay"></div>
-  <nav class="hero-nav">
-    <a href="/" class="hero-nav-link">Home</a>
-    <a href="https://mason-crest.myshopify.com/pages/about-us" class="hero-nav-link">About</a>
-    <a href="https://mason-crest.myshopify.com/pages/faqs" class="hero-nav-link">FAQs</a>
-    <a href="https://mason-crest.myshopify.com/pages/shipping" class="hero-nav-link">Shipping</a>
-    <a href="https://mason-crest.myshopify.com/pages/contact-us" class="hero-nav-link">Contact</a>
-    <div class="hero-nav-dropdown">
-      <span class="hero-nav-link hero-nav-dropdown-trigger">Policies</span>
-      <div class="hero-nav-dropdown-menu">
-        <a href="https://mason-crest.myshopify.com/pages/privacy-policy" class="hero-nav-dropdown-link">Privacy Policy</a>
-        <a href="https://mason-crest.myshopify.com/pages/terms-of-service" class="hero-nav-dropdown-link">Terms of Service</a>
-        <a href="https://mason-crest.myshopify.com/pages/refund-policy" class="hero-nav-dropdown-link">Refund Policy</a>
-      </div>
-    </div>
-    <div class="hero-nav-icons">
-      <a href="https://mason-crest.myshopify.com/account" class="hero-nav-icon" aria-label="Account">
-        <img src="{{ 'icon-account.svg' | asset_url }}" alt="Account" width="20" height="20">
-      </a>
-      <a href="https://mason-crest.myshopify.com/cart" class="hero-nav-icon" aria-label="Cart">
-        <img src="{{ 'icon-cart.svg' | asset_url }}" alt="Cart" width="20" height="20">
-        <span class="hero-cart-count">{{ cart.item_count }}</span>
-      </a>
-    </div>
-  </nav>
 
   {%- if section.settings.show_logo -%}
     <div class="hero-logo-container">
@@ -93,21 +69,6 @@
     z-index: 1;
   }
 
-  .hero-nav {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 2.5rem;
-    padding: 1.5rem 4rem;
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(10px);
-    z-index: 10;
-  }
-
   .hero-logo-container {
     position: absolute;
     top: 10rem;
@@ -162,121 +123,7 @@
     transform: translateY(-2px);
   }
 
-  .hero-nav-link {
-    color: #FFFFFF;
-    font-size: 1rem;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    text-decoration: none;
-    transition: opacity 0.3s ease;
-    white-space: nowrap;
-  }
-
-  .hero-nav-link:hover {
-    opacity: 0.7;
-  }
-
-  .hero-nav-dropdown {
-    position: relative;
-    display: flex;
-    align-items: center;
-  }
-
-  .hero-nav-dropdown-trigger {
-    cursor: pointer;
-  }
-
-  .hero-nav-dropdown-menu {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease, margin-top 0.3s ease;
-  }
-
-  .hero-nav-dropdown:hover .hero-nav-dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-    margin-top: 1.5rem;
-  }
-
-  .hero-nav-dropdown-link {
-    color: #FFFFFF;
-    font-size: 0.85rem;
-    font-weight: 400;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-    text-decoration: none;
-    transition: opacity 0.3s ease;
-    white-space: nowrap;
-    text-align: center;
-  }
-
-  .hero-nav-dropdown-link:hover {
-    opacity: 0.7;
-  }
-
-  .hero-nav-icons {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    margin-left: auto;
-  }
-
-  .hero-nav-icon {
-    position: relative;
-    display: flex;
-    align-items: center;
-    transition: opacity 0.3s ease;
-  }
-
-  .hero-nav-icon:hover {
-    opacity: 0.7;
-  }
-
-  .hero-nav-icon img {
-    filter: brightness(0) invert(1);
-  }
-
-  .hero-cart-count {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    background-color: #FFFFFF;
-    color: #000000;
-    border-radius: 50%;
-    width: 18px;
-    height: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.7rem;
-    font-weight: 600;
-  }
-
   @media (max-width: 768px) {
-    .hero-nav {
-      flex-wrap: wrap;
-      gap: 1.2rem;
-      padding: 1rem 1rem;
-      justify-content: center;
-    }
-
-    .hero-nav-link {
-      font-size: 0.8rem;
-    }
-
-    .hero-nav-dropdown-link {
-      font-size: 0.75rem;
-    }
-
     .hero-logo-container {
       top: 6rem;
     }
