@@ -2,6 +2,13 @@
   "name": "Header",
   "type": "header",
   "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "settings": {
+        "show_announcement": true,
+        "announcement_text": "🎄 57% OFF FOR CHRISTMAS 🎄"
+      }
+    },
     "header": {
       "type": "header",
       "settings": {
@@ -15,6 +22,7 @@
     }
   },
   "order": [
+    "announcement-bar",
     "header"
   ]
 }
